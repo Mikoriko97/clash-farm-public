@@ -1,0 +1,57 @@
+/* Адмінка в Aaply Dark: ті самі токени admin.css, переозначені — чорне полотно, графітові картки,
+   жовтий маркер як головний акцент, пласко (без тіней). Підключається після admin.css. */
+:root {
+  --ground: #0c0c0c;
+  --surface: #1a1a1a;
+  --surface-2: #272727;
+  --line: #343434;
+  --ink: #f4f4f1;
+  --ink-2: rgba(244, 244, 241, 0.72);
+  --ink-3: rgba(244, 244, 241, 0.56);
+  --moss: #e6e51e;
+  --moss-2: #f0ef4a;
+  --moss-soft: rgba(230, 229, 30, 0.14);
+  --sun: #ff8562;
+  --sun-soft: rgba(255, 133, 98, 0.16);
+  --danger: #f34646;
+  --danger-soft: rgba(243, 70, 70, 0.16);
+  --info-soft: rgba(109, 140, 255, 0.18);
+  --radius: 30px;
+  --shadow: none;
+  --font: "Inter", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display: "Poppins", "Inter", system-ui, sans-serif;
+  --c-moss: #e6e51e; --c-moss-soft: rgba(230, 229, 30, 0.18);
+  --c-sun: #ff8562; --c-sun-soft: rgba(255, 133, 98, 0.2);
+  --c-sky: #6d8cff; --c-sky-soft: rgba(109, 140, 255, 0.2);
+  --c-rose: #f34646; --c-rose-soft: rgba(243, 70, 70, 0.2);
+  color-scheme: dark;
+}
+html, body { background-image: radial-gradient(circle at 1px 1px, #232323 1.1px, transparent 1.4px); background-size: 20px 20px; }
+h1, h2, .stat .n, .logo { font-family: var(--display); letter-spacing: -0.02em; }
+h1 { font-weight: 700; font-size: 30px; }
+.side { border-radius: 36px; }
+.mark { background: var(--moss); color: #000; border-radius: 14px; font-family: var(--display); font-weight: 700; }
+nav a { border-radius: 999px; font-weight: 500; }
+nav a.active { background: var(--moss); color: #000; }
+nav .badge { background: #ff8562; color: #000; }
+.avatar { background: var(--moss); color: #000; }
+.stat.dark { background: var(--moss); color: #000; }
+.stat.dark small, .stat.dark .d { color: rgba(0, 0, 0, 0.65); }
+.tag.warn, .alert.warn { color: #ffb29b; }
+.tag.info { color: #a9bbff; }
+.tag.on { color: var(--moss); }
+button, .btn { border-radius: 999px; background: var(--moss); border-color: var(--moss); color: #000; font-weight: 500; }
+button:hover, .btn:hover { background: var(--moss-2); }
+button.ghost, .btn.ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+button.ghost:hover { background: var(--surface-2); }
+button.danger { background: var(--danger); border-color: var(--danger); color: #fff; }
+button.small { border-radius: 999px; }
+input[type="text"], input[type="search"], input[type="number"], select { border-radius: 16px; background: var(--surface-2); border-color: var(--line); }
+input:focus, select:focus { border-color: var(--moss); outline: none; }
+.tabs { background: var(--surface-2); }
+.tabs a.active, .tabs button.active { background: var(--ink); color: #0b0b0b; box-shadow: none; }
+code, pre.json { background: var(--surface-2); }
+svg.chart .dot { stroke: var(--surface); }
+svg.ring .ring-label { fill: var(--ink); }
+input[type="checkbox"], input[type="range"] { accent-color: var(--moss); }
+* { scrollbar-width: thin; scrollbar-color: rgba(244, 244, 241, 0.28) transparent; }

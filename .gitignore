@@ -1,0 +1,69 @@
+# secrets & local config
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+keypair*.json
+id_rsa*
+id_ed25519*
+
+# build
+/server/target/
+/web/node_modules/
+/node_modules/
+/web/dist/
+/web/dist-admin/
+/web/dist-smoke/
+*.tsbuildinfo
+/client/.godot/
+/client/export/
+*.log
+
+# python caches (Blender generators)
+__pycache__/
+*.pyc
+
+# os / editors
+.DS_Store
+.idea/
+.vscode/
+
+# raw animation library (192 MB, has .gdignore; curated copies live in client/assets/character)
+/client/Motion/
+# purchased Simple Trees pack (345 MB of 4K TGA + Unreal FBX, has .gdignore); processed copies live in client/assets/simple_trees
+/client/assets/Simple Trees/
+
+# raw tool models dropped by the owner; the curated copies live in client/assets/tools
+/forgames/
+
+# accidental "New Game Project" created at repo root by the Godot project manager; the real project is client/
+/games/
+
+# Godot web export output (built from client/, 40 MB)
+/web/public/godot/*
+!/web/public/godot/.gitkeep
+
+# Blender: проміжні сирі карти (dump/bake), джерело — mainland.blend
+client/blender/*.f32
+client/blender/*.rgba
+client/blender/*.bak.blend
+client/blender/*.blend1
+client/blender/characters/*.blend1
+client/tools/__pycache__/
+
+# per-machine preview config of the desktop app (dev server ports); never committed
+
+# Android app (ADR-042): signing keys and built APKs never enter the repo
+.keystore/
+*.keystore
+*.jks
+*.apk
+*.aab
+mobile/.gradle/
+mobile/.kotlin/
+
+# dApp Store submission kit (images, APK copy) - built locally, not versioned
+dappstore/

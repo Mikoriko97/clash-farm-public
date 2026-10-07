@@ -1,0 +1,42 @@
+/* Aaply dark: той самий плаский каркас (aaply.css), але чорне полотно й графітові картки.
+   Жовтий маркер лишається головним акцентом; чорна «парна» кнопка стає білою; синій CLASH світлішає
+   для контрасту. Усе через змінні --a-* — правил тут мінімум. */
+:root[data-theme="aaply-dark"] {
+  --a-ink: #f4f4f1;
+  --a-on-ink: #0b0b0b;
+  --a-ink-hover: #ffffff;
+  --paper: #1a1a1a;
+  --glass: #1a1a1a;
+  --canvas: #272727;
+  --canvas-2: #202020;
+  --page: #0c0c0c;
+  --hairline: #343434;
+  --hover: #323232;
+  --fogcell: #3a3a3a;
+  --dot: #262626;
+  --clash: #6d8cff;
+  --shadow-md: rgba(0, 0, 0, 0.6) 0 10px 10px -5px;
+  --a-sun-text: #e6e51e;
+
+  .scrim { background: rgba(0, 0, 0, 0.55); }
+  .tool .badge, .toast.err, .city .tag.demo { color: #fff; }
+  .tools { box-shadow: none; box-shadow: inset 0 0 0 1px var(--hairline); }
+  .tool kbd { background: var(--canvas); }
+  .tool[aria-pressed="true"] kbd { background: rgba(0, 0, 0, 0.15); }
+  .ring svg circle:last-child { stroke: var(--sun); }
+  .toast { background: var(--a-ink); color: var(--a-on-ink); }
+  .toast.big { background: var(--sun); color: #000; }
+  .ii-badge { color: #000; }
+  /* marker highlight needs a light background behind dark text; on dark surfaces use yellow text */
+  .city .v.a-ready, .city .v.a-sun, .vault .apy .num, .vault.own_pool .apy .num { color: var(--sun); background: none; }
+  .city .card.mine { background: rgba(230, 229, 30, 0.14); }
+  .outcome { background: rgba(230, 229, 30, 0.16); }
+  .vault.own_pool { background: var(--paper); border-color: var(--sun); }
+  .tile[aria-pressed="true"], .picker button[aria-pressed="true"], .creator .cc-pill[aria-checked="true"] { background: rgba(230, 229, 30, 0.16); outline-color: var(--sun); }
+  .creator .cc-pill[aria-checked="true"] { border-color: var(--sun); }
+  .creator .cc-swatch[aria-checked="true"] { border-color: var(--a-ink); }
+  .creator input { background: var(--canvas); border-color: var(--hairline); }
+  .tk { box-shadow: none; }
+  .tutorial ol li.done svg { color: #000; }
+  .hud .price.c, .buy.pink, .btn.primary, .tabs button[aria-selected="true"].c { color: #fff; }
+}

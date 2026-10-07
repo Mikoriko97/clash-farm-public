@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/grass_bush_low_01.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+layer = "ground"
+scene = ExtResource("2_piece")
+radius_m = 0.49
+spacing_m = 2.5
+density = 0.5
+biome = "meadow"
+biome_min = 0.4
+zones = "MFDSC"
+cluster = -0.4
+cluster_freq = 0.04
+visible_m = 40.0
+shadows = false

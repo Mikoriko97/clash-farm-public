@@ -1,0 +1,125 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/decor_item.gd" id="1_slot"]
+[ext_resource type="Material" path="res://materials/target_indicator.tres" id="2_marker"]
+[ext_resource type="PackedScene" path="res://scenes/props/fence.tscn" id="3_fence"]
+[ext_resource type="PackedScene" path="res://scenes/props/bench.tscn" id="4_bench"]
+[ext_resource type="PackedScene" path="res://scenes/props/barrel.tscn" id="5_barrel"]
+[ext_resource type="PackedScene" path="res://scenes/props/lantern.tscn" id="6_lantern"]
+[ext_resource type="PackedScene" path="res://scenes/props/windmill.tscn" id="8_windmill"]
+[ext_resource type="PackedScene" path="res://scenes/props/well.tscn" id="9_well"]
+[ext_resource type="Material" path="res://materials/highlight.tres" id="7_highlight"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/barrel_small.tscn" id="v2_00"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/bench_stone.tscn" id="v2_01"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/bonfire.tscn" id="v2_02"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/bucket.tscn" id="v2_03"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/canopy.tscn" id="v2_04"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/chair.tscn" id="v2_05"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/coop.tscn" id="v2_06"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/crate.tscn" id="v2_07"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/farm_sign.tscn" id="v2_08"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/feeder.tscn" id="v2_09"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/fence_cross.tscn" id="v2_10"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/fence_picket.tscn" id="v2_11"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/firewood.tscn" id="v2_12"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/gazebo.tscn" id="v2_13"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/gazebo_large.tscn" id="v2_14"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/greenhouse.tscn" id="v2_15"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/haybale.tscn" id="v2_16"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/lamp_short.tscn" id="v2_17"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/lookout_tower.tscn" id="v2_18"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/mailbox.tscn" id="v2_19"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/milk_can.tscn" id="v2_20"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/pergola.tscn" id="v2_21"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/shed.tscn" id="v2_22"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/signpost.tscn" id="v2_23"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/stool.tscn" id="v2_24"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/table.tscn" id="v2_25"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/tractor.tscn" id="v2_26"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/water_tower.tscn" id="v2_27"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/watering_can.tscn" id="v2_28"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/well_windlass.tscn" id="v2_29"]
+[ext_resource type="PackedScene" path="res://scenes/props/decor/wheelbarrow.tscn" id="v2_30"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_marker"]
+top_radius = 0.9
+bottom_radius = 0.9
+height = 0.06
+radial_segments = 24
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_pick"]
+height = 0.5
+radius = 1.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_highlight"]
+top_radius = 1.25
+bottom_radius = 1.25
+height = 0.04
+radial_segments = 32
+
+[node name="DecorItem" type="Node3D"]
+script = ExtResource("1_slot")
+pieces = {
+"decor_barrel": ExtResource("5_barrel"),
+"decor_bench": ExtResource("4_bench"),
+"decor_fence": ExtResource("3_fence"),
+"decor_lantern": ExtResource("6_lantern"),
+"decor_well": ExtResource("9_well"),
+"decor_windmill": ExtResource("8_windmill"),
+"decor_barrel_small": ExtResource("v2_00"),
+"decor_bench_stone": ExtResource("v2_01"),
+"decor_bonfire": ExtResource("v2_02"),
+"decor_bucket": ExtResource("v2_03"),
+"decor_canopy": ExtResource("v2_04"),
+"decor_chair": ExtResource("v2_05"),
+"decor_coop": ExtResource("v2_06"),
+"decor_crate": ExtResource("v2_07"),
+"decor_farm_sign": ExtResource("v2_08"),
+"decor_feeder": ExtResource("v2_09"),
+"decor_fence_cross": ExtResource("v2_10"),
+"decor_fence_picket": ExtResource("v2_11"),
+"decor_firewood": ExtResource("v2_12"),
+"decor_gazebo": ExtResource("v2_13"),
+"decor_gazebo_large": ExtResource("v2_14"),
+"decor_greenhouse": ExtResource("v2_15"),
+"decor_haybale": ExtResource("v2_16"),
+"decor_lamp_short": ExtResource("v2_17"),
+"decor_lookout_tower": ExtResource("v2_18"),
+"decor_mailbox": ExtResource("v2_19"),
+"decor_milk_can": ExtResource("v2_20"),
+"decor_pergola": ExtResource("v2_21"),
+"decor_shed": ExtResource("v2_22"),
+"decor_signpost": ExtResource("v2_23"),
+"decor_stool": ExtResource("v2_24"),
+"decor_table": ExtResource("v2_25"),
+"decor_tractor": ExtResource("v2_26"),
+"decor_water_tower": ExtResource("v2_27"),
+"decor_watering_can": ExtResource("v2_28"),
+"decor_well_windlass": ExtResource("v2_29"),
+"decor_wheelbarrow": ExtResource("v2_30")
+}
+
+[node name="Marker" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+visible = false
+mesh = SubResource("CylinderMesh_marker")
+material_override = ExtResource("2_marker")
+
+[node name="Highlight" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+visible = false
+mesh = SubResource("CylinderMesh_highlight")
+material_override = ExtResource("7_highlight")
+
+[node name="Body" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, 0)
+collision_layer = 2
+collision_mask = 0
+
+[node name="Collision" type="CollisionShape3D" parent="Body"]
+shape = SubResource("CylinderShape3D_pick")
+
+[node name="Holder" type="Node3D" parent="."]
+unique_name_in_owner = true

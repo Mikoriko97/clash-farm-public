@@ -1,0 +1,51 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/player.gd" id="1_player"]
+[ext_resource type="PackedScene" path="res://assets/character/base45/base45.glb" id="2_model"]
+[ext_resource type="AnimationLibrary" path="res://assets/character/character_anims.tres" id="3_anims"]
+[ext_resource type="Material" path="res://materials/character_palette.tres" id="4_palette"]
+[ext_resource type="Script" path="res://scripts/hand_tools.gd" id="5_hand"]
+[ext_resource type="Script" path="res://scripts/footsteps.gd" id="12_steps"]
+[ext_resource type="Script" path="res://scripts/character_life.gd" id="20_life"]
+[ext_resource type="Script" path="res://scripts/stride_sync.gd" id="21_stride"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_body"]
+radius = 0.28
+height = 1.35
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_player")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(0.78, 0, 0, 0, 0.78, 0, 0, 0, 0.78, 0, 0, 0)
+unique_name_in_owner = true
+
+[node name="Base45_Body" parent="Model/Base45/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_palette")
+
+[node name="RightHand" type="Node3D" parent="Model/Base45/Skeleton3D" index="2"]
+unique_name_in_owner = true
+script = ExtResource("5_hand")
+
+[node name="Collision" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.68, 0)
+shape = SubResource("CapsuleShape3D_body")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Model/Base45")
+libraries = {
+&"": ExtResource("3_anims")
+}
+autoplay = "idle"
+
+[node name="Footsteps" type="Node" parent="."]
+script = ExtResource("12_steps")
+local = true
+
+[node name="Life" type="Node" parent="."]
+script = ExtResource("20_life")
+own = true
+
+[node name="StrideSync" type="Node" parent="."]
+script = ExtResource("21_stride")

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/flower_bush_yellow.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+layer = "ground"
+scene = ExtResource("2_piece")
+radius_m = 0.32
+spacing_m = 2.5
+density = 0.35
+biome = "any"
+cluster = 0.4
+cluster_freq = 0.07
+shadows = false

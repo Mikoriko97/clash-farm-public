@@ -1,0 +1,9 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=3]
+
+[ext_resource type="Shader" path="res://shaders/contact_ao.gdshader" id="1_shader"]
+
+[resource]
+resource_name = "contact_ao"
+shader = ExtResource("1_shader")
+shader_parameter/strength = 0.6
+shader_parameter/softness = 0.8

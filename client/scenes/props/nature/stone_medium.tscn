@@ -1,0 +1,36 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/mesh_collider.gd" id="2_collider"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_average_02_mossy.glb" id="1_piece"]
+[ext_resource type="Material" path="res://materials/highlight.tres" id="9_highlight"]
+[ext_resource type="Material" path="res://materials/contact_ao.tres" id="10_contact"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_contact"]
+material = ExtResource("10_contact")
+size = Vector2(1.8, 1.8)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_highlight"]
+top_radius = 0.8
+bottom_radius = 0.8
+height = 0.04
+radial_segments = 32
+
+[node name="StoneMedium" type="Node3D"]
+
+[node name="Piece" parent="." instance=ExtResource("1_piece")]
+
+[node name="Highlight" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+visible = false
+mesh = SubResource("CylinderMesh_highlight")
+material_override = ExtResource("9_highlight")
+
+[node name="Body" type="StaticBody3D" parent="." node_paths=PackedStringArray("source")]
+script = ExtResource("2_collider")
+source = NodePath("../Piece")
+
+[node name="Contact" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_contact")

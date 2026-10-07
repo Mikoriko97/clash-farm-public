@@ -1,0 +1,24 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/camera_rig.gd" id="1_rig"]
+
+[node name="CameraRig" type="Node3D"]
+script = ExtResource("1_rig")
+
+[node name="Yaw" type="Node3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
+
+[node name="Pitch" type="Node3D" parent="Yaw"]
+transform = Transform3D(1, 0, 0, 0, 0.642788, 0.766044, 0, -0.766044, 0.642788, 0, 0, 0)
+
+[node name="Arm" type="SpringArm3D" parent="Yaw/Pitch"]
+unique_name_in_owner = true
+collision_mask = 1
+spring_length = 14.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="Yaw/Pitch/Arm"]
+unique_name_in_owner = true
+current = true
+fov = 45.0
+near = 0.2

@@ -1,0 +1,48 @@
+# cargo-deny (ADR-041): run by CI on every push (`cargo deny check` in server/). Security advisories and yanked crates
+# fail the build; only crates.io as a source; licenses from an explicit allowlist (built from `cargo metadata`,
+# 2026-10-04). A new license or an ignored advisory is a decision: add it here only with an ADR.
+
+[graph]
+all-features = true
+
+[advisories]
+version = 2
+yanked = "deny"
+# RUSTSEC ids accepted with an ADR (none yet).
+ignore = []
+
+[licenses]
+version = 2
+confidence-threshold = 0.9
+allow = [
+    "MIT",
+    "MIT-0",
+    "Apache-2.0",
+    "Apache-2.0 WITH LLVM-exception",
+    "BSD-2-Clause",
+    "BSD-3-Clause",
+    "BSL-1.0",
+    "ISC",
+    "Zlib",
+    "Unicode-3.0",
+    "Unlicense",
+    "CC0-1.0",
+    "CDLA-Permissive-2.0",
+]
+
+# The workspace's own crates (license = "UNLICENSED", publish = false) are ours, not a dependency.
+[licenses.private]
+ignore = true
+
+[bans]
+# Two versions of one crate are common in a tree this size: shown, not fatal.
+multiple-versions = "warn"
+wildcards = "deny"
+# The workspace's own crates are path dependencies without a version (publish = false).
+allow-wildcard-paths = true
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []

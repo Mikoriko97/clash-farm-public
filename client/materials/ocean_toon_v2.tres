@@ -1,0 +1,38 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3]
+
+[ext_resource type="Shader" path="res://shaders/water/shader/water_toon.gdshader" id="1_shader"]
+[ext_resource type="NoiseTexture2D" path="res://shaders/water/textures/wave.tres" id="2_wave"]
+[ext_resource type="NoiseTexture2D" path="res://shaders/water/textures/wave_normal.tres" id="3_wave_normal"]
+[ext_resource type="NoiseTexture2D" path="res://shaders/water/textures/foam.tres" id="4_foam"]
+[ext_resource type="NoiseTexture2D" path="res://shaders/water/textures/caustics.tres" id="5_caustics"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/surface_color = Color(0.16, 0.52, 0.66, 1)
+shader_parameter/depth_color = Color(0.04, 0.16, 0.36, 1)
+shader_parameter/foam_color = Color(0.95, 0.98, 1, 1)
+shader_parameter/depth_size = 6.0
+shader_parameter/surface_roughness = 0.35
+shader_parameter/foam_roughness = 0.3
+shader_parameter/caustics_texture = ExtResource("5_caustics")
+shader_parameter/caustics_strength = 1.0
+shader_parameter/caustics_scale = Vector2(0.5, 0.5)
+shader_parameter/wave_texture = ExtResource("2_wave")
+shader_parameter/wave_normal_texture = ExtResource("3_wave_normal")
+shader_parameter/wave_softness = 1.2
+shader_parameter/wave_scale = Vector2(0.045, 0.045)
+shader_parameter/wave_layer_scale = Vector2(1.5, 1.5)
+shader_parameter/wave_highlight = 0.3
+shader_parameter/wave_velocity = Vector2(0.03, 0.02)
+shader_parameter/foam_texture = ExtResource("4_foam")
+shader_parameter/edge_foam_depth_size = 1.2
+shader_parameter/wave_foam_amount = 0.4
+shader_parameter/foam_start = 0.6
+shader_parameter/foam_end = 0.7
+shader_parameter/foam_exponent = 2.0
+shader_parameter/refraction_amount = 0.04
+shader_parameter/refraction_exponent = 0.5
+shader_parameter/displacement_amount = 0.12
+shader_parameter/diffuse_steps = 4.0
+shader_parameter/diffuse_smoothness = 0.2
+shader_parameter/specular_steps = 3.0

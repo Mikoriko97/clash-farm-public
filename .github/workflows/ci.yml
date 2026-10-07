@@ -1,0 +1,153 @@
+# CI (ADR-041, owner ok 2026-10-04): every push and pull request runs the same checks as before a commit locally.
+# Supply chain: only official actions/* pinned to a full commit SHA, service images pinned by digest, downloaded
+# tools checked against a pinned sha256. No secrets here and no deploy (deploy stays manual, ADR-030).
+name: CI
+
+on:
+  push:
+    branches: [main, "ci/**"]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+# A newer push to the same pull request cancels the old run; every commit on main and ci/** is checked to the end.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  # Pinned: a new stable's clippy lints must not turn main red on their own.
+  RUST_VERSION: "1.95.0"
+
+jobs:
+  server:
+    name: server (fmt, clippy, test)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    services:
+      postgres:
+        # postgres:16-alpine
+        image: postgres@sha256:721873c34ceb9f8d8fc265984940dc982404c105f19ad51be9fdc5970a6080ea
+        env:
+          # Throwaway database of this run only: no password exists anywhere.
+          POSTGRES_HOST_AUTH_METHOD: trust
+        ports: ["127.0.0.1:5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U postgres"
+          --health-interval 5s --health-timeout 5s --health-retries 30
+      redis:
+        # redis:7-alpine
+        image: redis@sha256:858f009f9709ce576febc734aa78b8f6d624b82571f9ddb6bda4377c833b3499
+        ports: ["127.0.0.1:6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s --health-timeout 5s --health-retries 30
+    env:
+      CF_TEST_DATABASE_URL: postgres://migrator@127.0.0.1:5432/cf_test
+      CF_TEST_REDIS_URL: redis://127.0.0.1:6379/1
+    defaults:
+      run:
+        working-directory: server
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Rust ${{ env.RUST_VERSION }}
+        run: |
+          rustup toolchain install "$RUST_VERSION" --profile minimal --component rustfmt,clippy
+          echo "RUSTUP_TOOLCHAIN=$RUST_VERSION" >> "$GITHUB_ENV"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry/index
+            ~/.cargo/registry/cache
+            ~/.cargo/git/db
+            server/target
+          key: cargo-${{ runner.os }}-${{ env.RUST_VERSION }}-${{ hashFiles('server/Cargo.lock') }}
+          restore-keys: cargo-${{ runner.os }}-${{ env.RUST_VERSION }}-
+      - name: Test database (roles as on the box, docs/RUNBOOK.md)
+        run: |
+          psql -h 127.0.0.1 -U postgres -v ON_ERROR_STOP=1 <<'SQL'
+          CREATE ROLE migrator LOGIN;
+          CREATE ROLE app LOGIN;
+          CREATE DATABASE cf_test OWNER migrator;
+          SQL
+      - name: No compile-time sqlx macros (else `sqlx prepare --check` belongs here, ADR-041)
+        run: |
+          if grep -rnE '\bquery(_as|_scalar|_file|_file_as|_file_scalar)?(_unchecked)?!\s*\(' crates; then
+            echo "query! macros found: add sqlx prepare --check to CI (ADR-041)"; exit 1
+          fi
+      - run: cargo fmt --check
+      - run: cargo clippy --all-targets --locked -- -D warnings
+      - run: cargo test --locked --no-fail-fast
+
+  web:
+    name: web (lint, typecheck, test, build)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24.16.0"
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci --ignore-scripts
+      - name: Peer dependencies (legacy-peer-deps, reviewed exceptions in web/scripts/check-peers.mjs)
+        run: node scripts/check-peers.mjs
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npm run build:admin
+
+  supply-chain:
+    name: supply chain (npm audit, cargo deny)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: "24.16.0"
+      - name: npm audit (high and critical; accepted list in web/scripts/audit-ci.mjs)
+        working-directory: web
+        run: node scripts/audit-ci.mjs
+      - name: cargo-deny 0.20.2 (advisories, licenses, bans, sources; server/deny.toml)
+        env:
+          # cargo-deny only needs `cargo metadata`: the runner's own stable, nothing to install.
+          RUSTUP_TOOLCHAIN: stable
+        run: |
+          curl -fsSL -o /tmp/cargo-deny.tar.gz \
+            https://github.com/EmbarkStudios/cargo-deny/releases/download/0.20.2/cargo-deny-0.20.2-x86_64-unknown-linux-musl.tar.gz
+          echo "9f12ed4c49936e09b48bf862b595cde2fe64fcbd9d74dfacac6131ca824c8d5f  /tmp/cargo-deny.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/cargo-deny.tar.gz -C /tmp
+          cd server && /tmp/cargo-deny-0.20.2-x86_64-unknown-linux-musl/cargo-deny --locked check
+
+  secrets:
+    name: secrets (gitleaks, whole history)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: gitleaks 8.30.1
+        run: |
+          curl -fsSL -o /tmp/gitleaks.tar.gz \
+            https://github.com/gitleaks/gitleaks/releases/download/v8.30.1/gitleaks_8.30.1_linux_x64.tar.gz
+          echo "551f6fc83ea457d62a0d98237cbad105af8d557003051f41f3e7ca7b3f2470eb  /tmp/gitleaks.tar.gz" | sha256sum -c -
+          tar -xzf /tmp/gitleaks.tar.gz -C /tmp gitleaks
+          # --redact: a finding never prints the secret itself into the log; --verbose shows where it is (rule, file, line, commit).
+          /tmp/gitleaks git --redact --verbose --no-banner --exit-code 1 .

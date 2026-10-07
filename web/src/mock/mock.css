@@ -1,0 +1,17 @@
+/* Позначка мок-режиму (badge.ts): знизу по центру, поверх усього, не ловить кліки. Кольори — змінні теми з запасними значеннями. */
+.mock-badge {
+  position: fixed;
+  left: 50%;
+  bottom: 8px;
+  transform: translateX(-50%);
+  z-index: 2147483000;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--a-sun-text, #e6e51e);
+  color: var(--a-on-ink, #0b0b0b);
+  font: 600 11px/1.4 var(--font, system-ui, sans-serif);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  pointer-events: none;
+  opacity: 0.9;
+}

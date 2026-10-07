@@ -1,0 +1,66 @@
+[gd_scene format=3]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rain"]
+render_priority = 10
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.82, 0.9, 1, 0.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_drop"]
+material = SubResource("StandardMaterial3D_rain")
+size = Vector3(0.03, 0.22, 0.03)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_splash"]
+render_priority = 10
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.9, 0.96, 1, 0.85)
+vertex_color_use_as_albedo = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_splash"]
+material = SubResource("StandardMaterial3D_splash")
+size = Vector3(0.06, 0.06, 0.06)
+
+[sub_resource type="Gradient" id="Gradient_splash"]
+offsets = PackedFloat32Array(0, 0.6, 1)
+colors = PackedColorArray(1, 1, 1, 0.9, 1, 1, 1, 0.6, 1, 1, 1, 0)
+
+[sub_resource type="Curve" id="Curve_splash"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.35), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[node name="Rain" type="CPUParticles3D"]
+emitting = false
+amount = 3200
+lifetime = 1.1
+preprocess = 1.0
+visibility_aabb = AABB(-25, -20, -25, 50, 40, 50)
+mesh = SubResource("BoxMesh_drop")
+emission_shape = 3
+emission_box_extents = Vector3(20, 0.5, 20)
+particle_flag_align_y = true
+direction = Vector3(0, -1, 0)
+spread = 3.0
+gravity = Vector3(0, -22, 0)
+initial_velocity_min = 9.0
+initial_velocity_max = 12.0
+
+[node name="Splash" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.98, 0)
+emitting = false
+amount = 900
+lifetime = 0.45
+mesh = SubResource("BoxMesh_splash")
+emission_shape = 3
+emission_box_extents = Vector3(18, 0.02, 18)
+direction = Vector3(0, 1, 0)
+spread = 70.0
+gravity = Vector3(0, -9.8, 0)
+initial_velocity_min = 1.2
+initial_velocity_max = 2.4
+angular_velocity_min = -180.0
+angular_velocity_max = 180.0
+scale_amount_min = 0.6
+scale_amount_max = 1.3
+scale_amount_curve = SubResource("Curve_splash")
+color_ramp = SubResource("Gradient_splash")

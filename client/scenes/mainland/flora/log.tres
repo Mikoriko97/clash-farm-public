@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/log_small_knotty.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+layer = "detail"
+scene = ExtResource("2_piece")
+radius_m = 1.4
+spacing_m = 16.0
+density = 0.45
+biome = "forest"
+biome_min = 0.45
+tilt = true
+visible_m = 100.0
+sink_m = 0.1
+collider_radius_m = 0.6
+collider_height_m = 0.7

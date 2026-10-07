@@ -1,0 +1,77 @@
+/* Aaply — екрани будівель міста (city/city.css). Те саме правило: жовтий = дія і власні пули,
+   синій = CLASH/графіки, червоний = лише тег «демо» і помилки, чорний = структура. Позитивні
+   числа підкреслює жовтий маркер (замість зеленого: нових відтінків у палітрі немає). */
+:root[data-theme^="aaply"] {
+  .city .body { scrollbar-color: color-mix(in srgb, var(--a-ink) 28%, transparent) transparent; }
+  .city-nav { background: var(--canvas); padding: 4px; }
+  .city-nav button { color: var(--a-ink); font-weight: 500; }
+  .city-nav button:hover { background: var(--hairline); color: var(--a-ink); }
+  .city-nav button[aria-current="true"] { background: var(--a-ink); color: var(--a-on-ink); }
+
+  /* header: the yellow rounded-square logo-mark language, black glyph */
+  .city-ic { background: var(--sun); color: var(--a-on-sun); border: 0; border-radius: 18px; }
+  .city .purpose { color: var(--a-ink); }
+  .city .tag { background: var(--canvas); border: 0; color: var(--ink-2); font-weight: 500; }
+  .city .tag.demo { background: var(--danger); color: #fff; }
+  .city .tag.own_pool { background: var(--sun); color: var(--a-on-sun); }
+  .city .tag.partner_api { background: var(--clash); color: #fff; }
+
+  .city .stat, .city .card { background: var(--canvas); border: 0; border-radius: var(--r-tile); }
+  .city .k { color: var(--ink-3); font-weight: 500; }
+  .city .v { font-family: var(--display); font-weight: 500; letter-spacing: -0.01em; }
+  .city .v.a-ready, .city .v.a-sun { width: fit-content; padding: 0 3px; margin-left: -3px; color: var(--a-ink); background: linear-gradient(transparent 52%, var(--sun) 52%); }
+  .city .v.a-clash { color: var(--clash); }
+  .city .card.mine { border: 0; background: rgba(230, 229, 30, 0.3); }
+
+  /* chart: working-canvas dot grid, blue line */
+  .spark { background: var(--canvas) var(--dots); border: 0; border-radius: var(--r-tile); }
+  .spark figcaption .num { color: var(--a-ink); }
+  .spark .line { stroke: var(--clash); }
+  .spark .area { fill: var(--clash); opacity: 0.12; }
+  .spark .cross { background: color-mix(in srgb, var(--a-ink) 30%, transparent); }
+  .spark .dot { background: var(--clash); box-shadow: 0 0 0 2px var(--paper); }
+  .spark .axis { background: color-mix(in srgb, var(--paper) 85%, transparent); color: var(--ink-2); }
+
+  /* amount field */
+  .amt { background: var(--canvas); border: 2px solid transparent; border-radius: 22px; }
+  .amt:focus-within { border-color: var(--a-ink); }
+  .amt.ro { background: var(--canvas-2); }
+  .amt .bal .num { color: var(--a-ink); }
+  .amt .max { background: var(--a-ink); color: var(--a-on-ink); font-weight: 500; }
+  .amt .max:hover { background: var(--a-ink-hover); }
+  .amt-main input { color: var(--a-ink); font-family: var(--display); font-weight: 700; letter-spacing: -0.02em; }
+  .tk { color: var(--a-ink); box-shadow: inset 0 0 0 2px color-mix(in srgb, var(--a-ink) 12%, transparent); }
+  .tk-pick { background: var(--paper); font-weight: 500; box-shadow: inset 0 0 0 1px var(--hairline); }
+  .tk-pick:not(.fixed):hover { background: var(--hairline); }
+  .tk-pick select option { color: var(--a-ink); }
+  .tk-pick svg { color: var(--ink-2); }
+  .flip { background: var(--sun); color: var(--a-on-sun); box-shadow: 0 0 0 4px var(--paper); }
+  .slip .tabs button { font-weight: 500; }
+
+  .kv { background: var(--canvas); border-radius: var(--r-tile); }
+  .kv > div { border-bottom-color: color-mix(in srgb, var(--a-ink) 8%, transparent); }
+  .outcome { color: var(--a-on-sun); background: rgba(230, 229, 30, 0.35); border: 0; }
+  .outcome svg { color: var(--a-ink); }
+  .outcome.err { background: rgba(243, 70, 70, 0.12); }
+  .outcome.err svg { color: var(--danger); }
+
+  /* vaults: gray rows, our own pools get the yellow Highlight Frame */
+  .vault { background: var(--canvas); border: 2px solid transparent; border-radius: 24px; }
+  .hud .vault:hover { background: var(--hover); box-shadow: none; }
+  .vault.own_pool { background: var(--paper); border-color: var(--sunbeam); }
+  .vault .t { font-weight: 600; }
+  .vault .d.mine { color: var(--a-ink); font-weight: 500; }
+  .vault .apy .num { width: fit-content; padding: 0 3px; justify-self: end; color: var(--a-ink); font-weight: 700; background: linear-gradient(transparent 52%, var(--sun) 52%); }
+  .vault.own_pool .apy .num { color: var(--a-ink); }
+  .vault .apy small { color: var(--ink-3); }
+  .hud .vault-title { color: var(--a-ink); font-family: var(--display); font-weight: 700; letter-spacing: -0.01em; }
+  .backlink { color: var(--a-ink); font-weight: 500; }
+  .backlink:hover { background: var(--canvas); color: var(--a-ink); }
+  .meter-bar { background: var(--hairline); }
+  .meter-bar i { background: var(--a-ink); }
+  .meter-cap .num { color: var(--a-ink); }
+  .city-foot { border-top-color: var(--hairline); }
+  .city-foot .hint svg { color: var(--a-ink); }
+  .city-foot .reset { color: var(--a-ink); font-weight: 500; border-color: color-mix(in srgb, var(--a-ink) 25%, transparent); }
+  .city-foot .reset:hover { background: var(--canvas); color: var(--a-ink); }
+}

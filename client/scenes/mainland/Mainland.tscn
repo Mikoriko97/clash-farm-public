@@ -1,0 +1,330 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/island_input.gd" id="1_input"]
+[ext_resource type="Script" path="res://scripts/mainland_terrain.gd" id="2_terrain"]
+[ext_resource type="Script" path="res://scripts/mainland_nodes.gd" id="3_nodes"]
+[ext_resource type="Script" path="res://scripts/mainland_landmarks.gd" id="3_landmarks"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/Landmark.tscn" id="23_landmark"]
+[ext_resource type="Script" path="res://scripts/interaction.gd" id="4_interaction"]
+[ext_resource type="Script" path="res://scripts/day_cycle.gd" id="5_daycycle"]
+[ext_resource type="Script" path="res://scripts/weather.gd" id="6_weather"]
+[ext_resource type="Script" path="res://scripts/world_bounds.gd" id="7_bounds"]
+[ext_resource type="Script" path="res://scripts/peer_avatars.gd" id="8_peers"]
+[ext_resource type="Script" path="res://scripts/pose_publisher.gd" id="9_pose"]
+[ext_resource type="Image" path="res://assets/mainland/height.res" id="10_height"]
+[ext_resource type="Image" path="res://assets/mainland/biome.res" id="11_biome"]
+[ext_resource type="Material" path="res://materials/mainland_ground.tres" id="12_ground"]
+[ext_resource type="Material" path="res://materials/water_shore_mainland.tres" id="13_ocean"]
+[ext_resource type="PackedScene" path="res://scenes/weather/Ambient.tscn" id="23_ambient"]
+[ext_resource type="Material" path="res://materials/farm_sky.tres" id="14_sky"]
+[ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="15_vignette"]
+[ext_resource type="Material" path="res://materials/grass/grass_blade.tres" id="16_blade"]
+[ext_resource type="Material" path="res://materials/grass/grass_gpu.tres" id="18_grass_quad"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="18_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/PeerAvatar.tscn" id="19_peer_avatar"]
+[ext_resource type="PackedScene" path="res://scenes/camera/CameraRig.tscn" id="20_camera"]
+[ext_resource type="PackedScene" path="res://scenes/weather/Rain.tscn" id="21_rain"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/MainlandNode.tscn" id="22_node"]
+[ext_resource type="PackedScene" path="res://assets/simple_trees/pieces/tree_simple_02_c.glb" id="50_pine"]
+[ext_resource type="PackedScene" path="res://assets/simple_trees/pieces/tree_simple_03_b.glb" id="51_oak"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_average_01.glb" id="52_stone"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_big_02.glb" id="53_copper"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_big_03_mossy.glb" id="54_iron"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/flower_bush_yellow.glb" id="55_herb"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/mushroom_big_brown.glb" id="56_mushroom"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/amanita_red.glb" id="57_amanita"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/grass_plain_high_01.glb" id="58_reed"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/log_big_regular.glb" id="59_log"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/bush_small.glb" id="60_bush"]
+[ext_resource type="PackedScene" path="res://scenes/city/City.tscn" id="40_city"]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="4_flora_kind"]
+[ext_resource type="Script" path="res://scripts/shader_warmup.gd" id="5_warmup"]
+[ext_resource type="Script" path="res://scripts/grass_gpu.gd" id="6_carpet"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/oak.tres" id="70_oak"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/fir_node.tres" id="70_fir_node"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/fir_big.tres" id="70_fir_big"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/spruce_small.tres" id="70_spruce_small"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/fir_young.tres" id="70_fir_young"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/birch.tres" id="70_birch"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/birch_b.tres" id="70_birch_b"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/forest_tree.tres" id="70_forest_tree"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/dark_giant.tres" id="70_dark_giant"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/dark_crooked.tres" id="70_dark_crooked"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/swamp_tree.tres" id="70_swamp_tree"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/meadow_high.tres" id="70_meadow_high"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/meadow_tree.tres" id="70_meadow_tree"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/meadow_tree_b.tres" id="70_meadow_tree_b"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/meadow_crooked.tres" id="70_meadow_crooked"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/sapling.tres" id="70_sapling"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/sapling_b.tres" id="70_sapling_b"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/shrub_tree.tres" id="70_shrub_tree"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/swamp_shrub.tres" id="70_swamp_shrub"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/ore_copper.tres" id="70_ore_copper"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/ore_iron.tres" id="70_ore_iron"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/rock_node.tres" id="70_rock_node"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/boulder.tres" id="70_boulder"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/rock_group.tres" id="70_rock_group"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/forest_stone.tres" id="70_forest_stone"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/bush.tres" id="70_bush"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/bush_b.tres" id="70_bush_b"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/bush_meadow.tres" id="70_bush_meadow"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/bush_meadow_b.tres" id="70_bush_meadow_b"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/fern.tres" id="70_fern"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/fern_swamp.tres" id="70_fern_swamp"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/log.tres" id="70_log"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/stump.tres" id="70_stump"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/herb_node.tres" id="70_herb_node"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/mushroom_node.tres" id="70_mushroom_node"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/amanita_node.tres" id="70_amanita_node"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/mushrooms.tres" id="70_mushrooms"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/flowers_white.tres" id="70_flowers_white"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/flowers_purple.tres" id="70_flowers_purple"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/flowers_red.tres" id="70_flowers_red"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/flowers_blue.tres" id="70_flowers_blue"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/grass_tall.tres" id="70_grass_tall"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/grass_forest.tres" id="70_grass_forest"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/grass_meadow.tres" id="70_grass_meadow"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/reed_node.tres" id="70_reed_node"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/reeds.tres" id="70_reeds"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/shore_grass.tres" id="70_shore_grass"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/scree.tres" id="70_scree"]
+[ext_resource type="Resource" path="res://scenes/mainland/flora/meadow_stone.tres" id="70_meadow_stone"]
+[ext_resource type="Script" path="res://scripts/zone_settle.gd" id="71_settle"]
+[ext_resource type="Script" path="res://scripts/flora_groups.gd" id="72_groups"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/log_fern.tscn" id="73_log_fern"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/stump_mushrooms.tscn" id="74_stump_mushrooms"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/boulders_moss.tscn" id="75_boulders_moss"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/dead_tree.tscn" id="76_dead_tree"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/berry_patch.tscn" id="77_berry_patch"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/rock_outcrop.tscn" id="78_rock_outcrop"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/reed_bank.tscn" id="79_reed_bank"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/groups/fallen_birch.tscn" id="80_fallen_birch"]
+[ext_resource type="PackedScene" path="res://scenes/props/bridge.tscn" id="81_bridge"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_blade"]
+size = Vector2(0.45, 0.5)
+center_offset = Vector3(0, 0.25, 0)
+
+[sub_resource type="Sky" id="Sky_farm"]
+sky_material = ExtResource("14_sky")
+
+[sub_resource type="Gradient" id="Gradient_grade"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.03, 0.05, 0.09, 1, 0.5, 0.49, 0.47, 1, 1, 0.985, 0.94, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_grade"]
+gradient = SubResource("Gradient_grade")
+width = 128
+
+[sub_resource type="Environment" id="Environment_mainland"]
+background_mode = 2
+sky = SubResource("Sky_farm")
+ambient_light_source = 3
+ambient_light_color = Color(0.58, 0.68, 0.9, 1)
+ambient_light_sky_contribution = 0.45
+tonemap_mode = 4
+tonemap_exposure = 1.0
+tonemap_white = 4.0
+glow_enabled = true
+glow_intensity = 0.35
+glow_strength = 0.9
+glow_bloom = 0.04
+glow_blend_mode = 2
+glow_hdr_threshold = 1.15
+adjustment_enabled = true
+adjustment_brightness = 1.0
+adjustment_contrast = 1.1
+adjustment_saturation = 1.12
+adjustment_color_correction = SubResource("GradientTexture1D_grade")
+fog_enabled = true
+fog_light_color = Color(0.72, 0.85, 0.94, 1)
+fog_density = 0.0022
+fog_aerial_perspective = 0.55
+fog_sky_affect = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vignette"]
+shader = ExtResource("15_vignette")
+shader_parameter/strength = 0.2
+shader_parameter/inner = 0.7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_sea"]
+size = Vector2(1400, 1400)
+subdivide_width = 80
+subdivide_depth = 80
+
+[node name="Mainland" type="Node3D"]
+script = ExtResource("1_input")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mainland")
+
+[node name="Sun" type="DirectionalLight3D" parent="." groups=["quality_sun"]]
+transform = Transform3D(0.866, -0.4096, 0.2868, 0, 0.5736, 0.8192, -0.5, -0.7094, 0.4967, 0, 20, 0)
+light_energy = 0.72
+light_angular_distance = 1.2
+shadow_enabled = true
+shadow_bias = 0.03
+shadow_normal_bias = 1.6
+directional_shadow_mode = 1
+directional_shadow_max_distance = 110.0
+directional_shadow_blur = 1.6
+
+[node name="Terrain" type="Node3D" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("2_terrain")
+height_image = ExtResource("10_height")
+biome_image = ExtResource("11_biome")
+ground_material = ExtResource("12_ground")
+sea_material = ExtResource("13_ocean")
+player = NodePath("../Player")
+flora = Array[ExtResource("4_flora_kind")]([ExtResource("70_oak"), ExtResource("70_dark_giant"), ExtResource("70_dark_crooked"), ExtResource("70_fir_node"), ExtResource("70_fir_big"), ExtResource("70_spruce_small"), ExtResource("70_fir_young"), ExtResource("70_birch"), ExtResource("70_birch_b"), ExtResource("70_forest_tree"), ExtResource("70_swamp_tree"), ExtResource("70_meadow_high"), ExtResource("70_meadow_tree"), ExtResource("70_meadow_tree_b"), ExtResource("70_meadow_crooked"), ExtResource("70_sapling"), ExtResource("70_sapling_b"), ExtResource("70_shrub_tree"), ExtResource("70_swamp_shrub"), ExtResource("70_ore_copper"), ExtResource("70_ore_iron"), ExtResource("70_rock_node"), ExtResource("70_boulder"), ExtResource("70_rock_group"), ExtResource("70_forest_stone"), ExtResource("70_bush"), ExtResource("70_bush_b"), ExtResource("70_bush_meadow"), ExtResource("70_bush_meadow_b"), ExtResource("70_fern"), ExtResource("70_fern_swamp"), ExtResource("70_log"), ExtResource("70_stump"), ExtResource("70_herb_node"), ExtResource("70_mushroom_node"), ExtResource("70_amanita_node"), ExtResource("70_mushrooms"), ExtResource("70_flowers_white"), ExtResource("70_flowers_purple"), ExtResource("70_flowers_red"), ExtResource("70_flowers_blue"), ExtResource("70_grass_tall"), ExtResource("70_grass_forest"), ExtResource("70_grass_meadow"), ExtResource("70_reed_node"), ExtResource("70_reeds"), ExtResource("70_shore_grass"), ExtResource("70_scree"), ExtResource("70_meadow_stone")])
+
+[node name="Sea" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.05, 0)
+mesh = SubResource("PlaneMesh_sea")
+surface_material_override/0 = ExtResource("13_ocean")
+cast_shadow = 0
+
+[node name="Nodes" type="Node3D" parent="." node_paths=PackedStringArray("terrain")]
+script = ExtResource("3_nodes")
+terrain = NodePath("../Terrain")
+node_scene = ExtResource("22_node")
+fallback_scene = ExtResource("60_bush")
+kinds = {
+"herb": ExtResource("55_herb"),
+"mushroom": ExtResource("56_mushroom"),
+"mushroom_rare": ExtResource("57_amanita"),
+"ore_copper": ExtResource("53_copper"),
+"ore_iron": ExtResource("54_iron"),
+"reed": ExtResource("58_reed"),
+"rock": ExtResource("52_stone"),
+"tree_fallen": ExtResource("59_log"),
+"tree_oak": ExtResource("51_oak"),
+"tree_pine": ExtResource("50_pine")
+}
+
+[node name="Grass" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("terrain", "follow")]
+script = ExtResource("6_carpet")
+terrain = NodePath("../Terrain")
+follow = NodePath("../Player")
+radius_m = 40.0
+density = 24.0
+blade_mesh = SubResource("QuadMesh_blade")
+blade_material = ExtResource("18_grass_quad")
+exclusions = Array[Vector3]([Vector3(0, 60, 17)])
+cast_shadow = 0
+
+[node name="Warmup" type="Node3D" parent="." node_paths=PackedStringArray("nodes", "terrain")]
+script = ExtResource("5_warmup")
+nodes = NodePath("../Nodes")
+terrain = NodePath("../Terrain")
+
+[node name="City" parent="." instance=ExtResource("40_city")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 60)
+
+[node name="Landmarks" type="Node3D" parent="." node_paths=PackedStringArray("terrain")]
+script = ExtResource("3_landmarks")
+terrain = NodePath("../Terrain")
+marker_scene = ExtResource("23_landmark")
+
+[node name="Player" parent="." instance=ExtResource("18_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 400)
+
+[node name="WorldBounds" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("7_bounds")
+player = NodePath("../Player")
+half_size = 500.0
+corner_radius = 0.0
+margin = 0.0
+floor_y = -1.2
+spawn = Vector3(0, 1.5, 400)
+
+[node name="Interaction" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("4_interaction")
+player = NodePath("../Player")
+
+[node name="CameraRig" parent="." node_paths=PackedStringArray("target") instance=ExtResource("20_camera")]
+target = NodePath("../Player")
+
+[node name="DayCycle" type="Node" parent="." node_paths=PackedStringArray("sun", "environment")]
+script = ExtResource("5_daycycle")
+sun = NodePath("../Sun")
+environment = NodePath("../WorldEnvironment")
+water = ExtResource("13_ocean")
+
+[node name="Ambient" parent="." node_paths=PackedStringArray("follow") instance=ExtResource("23_ambient")]
+follow = NodePath("../Player")
+
+[node name="Weather" type="Node" parent="." node_paths=PackedStringArray("day_cycle", "environment", "rain", "follow", "ambient")]
+script = ExtResource("6_weather")
+day_cycle = NodePath("../DayCycle")
+environment = NodePath("../WorldEnvironment")
+rain = NodePath("Rain")
+follow = NodePath("../Player")
+grass_material = ExtResource("16_blade")
+ground_material = ExtResource("12_ground")
+base_fog_density = 0.0022
+ambient = NodePath("../Ambient")
+
+[node name="Rain" parent="Weather" instance=ExtResource("21_rain")]
+
+[node name="PeerAvatars" type="Node3D" parent="."]
+script = ExtResource("8_peers")
+avatar_scene = ExtResource("19_peer_avatar")
+
+[node name="PosePublisher" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("9_pose")
+player = NodePath("../Player")
+
+[node name="PostFX" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Vignette" type="ColorRect" parent="PostFX" groups=["vignette"]]
+material = SubResource("ShaderMaterial_vignette")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Settle" type="Node" parent="." node_paths=PackedStringArray("warmup", "terrain")]
+script = ExtResource("71_settle")
+warmup = NodePath("../Warmup")
+terrain = NodePath("../Terrain")
+
+[node name="Groups" type="Node3D" parent="." node_paths=PackedStringArray("terrain")]
+script = ExtResource("72_groups")
+terrain = NodePath("../Terrain")
+
+[node name="LogFern" parent="Groups" instance=ExtResource("73_log_fern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -300, 2.83, -350)
+
+[node name="StumpMushrooms" parent="Groups" instance=ExtResource("74_stump_mushrooms")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -236, 2.95, -300)
+
+[node name="BouldersMoss" parent="Groups" instance=ExtResource("75_boulders_moss")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -190, 3.48, -262)
+
+[node name="DeadTree" parent="Groups" instance=ExtResource("76_dead_tree")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -300, 2.94, -430)
+
+[node name="BerryPatch" parent="Groups" instance=ExtResource("77_berry_patch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -150, 3.66, -200)
+
+[node name="RockOutcrop" parent="Groups" instance=ExtResource("78_rock_outcrop")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 330, 28.31, -200)
+
+[node name="ReedBank" parent="Groups" instance=ExtResource("79_reed_bank")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -380, 0.97, 300)
+
+[node name="FallenBirch" parent="Groups" instance=ExtResource("80_fallen_birch")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -60, 3.89, -150)
+
+[node name="Props" type="Node3D" parent="."]
+
+[node name="BridgeWest" parent="Props" instance=ExtResource("81_bridge")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 148.5, -2.9, 140)
+
+[node name="BridgeEast" parent="Props" instance=ExtResource("81_bridge")]
+transform = Transform3D(1.1, 0, 0, 0, 1.1, 0, 0, 0, 1.1, 167, -2.9, 140)

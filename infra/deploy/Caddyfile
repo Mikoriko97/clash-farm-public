@@ -1,0 +1,43 @@
+# Clash Farm — Caddy перед статикою web і cf-api (docs/RUNBOOK.md §1, SECURITY §6).
+# {$DOMAIN} підставляє bootstrap.sh. TLS від Let's Encrypt автоматично. Адмінка НЕ проксіюється:
+# лише 127.0.0.1:9100 через SSH-тунель.
+{$DOMAIN} {
+	encode zstd gzip
+	root * /opt/clash-farm/web
+
+	# Заголовки як у web/public/_headers (CSP без inline, wasm-unsafe-eval лише для Godot).
+	header {
+		Content-Security-Policy "default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://api.mainnet-beta.solana.com ws://localhost:*; worker-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'"
+		X-Content-Type-Options nosniff
+		Referrer-Policy no-referrer
+		Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+		Cross-Origin-Opener-Policy same-origin
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		-Server
+	}
+
+	# API і presence-сокет → cf-api на loopback (WebSocket-апгрейд Caddy передає сам).
+	handle /api/* {
+		reverse_proxy 127.0.0.1:8080
+	}
+	handle /healthz {
+		reverse_proxy 127.0.0.1:8080
+	}
+
+	# Godot-паки й wasm: завжди перевіряти свіжість (кеш pck у браузері — відома пастка).
+	@godot path /godot/*
+	header @godot Cache-Control "no-cache"
+	# Хешовані ассети Vite — назавжди.
+	@assets path /assets/*
+	header @assets Cache-Control "public, max-age=31536000, immutable"
+
+	handle {
+		try_files {path} /index.html
+		file_server
+	}
+}
+
+# www → корінь (DNS: A @ і CNAME www на той самий хост).
+www.{$DOMAIN} {
+	redir https://{$DOMAIN}{uri} permanent
+}

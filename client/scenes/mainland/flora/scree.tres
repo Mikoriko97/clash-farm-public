@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_small_01_mossy.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+layer = "detail"
+scene = ExtResource("2_piece")
+radius_m = 0.3
+spacing_m = 3.0
+density = 0.4
+biome = "rock"
+biome_min = 0.35
+tilt = true
+slope_max_deg = 60.0
+above_sea_m = 0.4
+visible_m = 45.0
+shadows = false

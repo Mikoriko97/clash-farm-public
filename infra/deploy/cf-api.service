@@ -1,0 +1,28 @@
+[Unit]
+Description=Clash Farm API (cf-api)
+After=network-online.target postgresql.service redis-server.service
+Wants=network-online.target
+
+[Service]
+User=clash
+Group=clash
+EnvironmentFile=/etc/clash-farm/api.env
+ExecStart=/opt/clash-farm/bin/cf-api
+Restart=always
+RestartSec=3
+# Hardening (rules/admin-infra.md): non-root, read-only FS, no new privileges.
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+LimitNOFILE=65536
+
+[Install]
+WantedBy=multi-user.target

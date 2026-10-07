@@ -1,0 +1,27 @@
+[Unit]
+Description=Clash Farm admin (cf-admin, loopback only, reach it through an SSH tunnel)
+After=network-online.target postgresql.service redis-server.service
+Wants=network-online.target
+
+[Service]
+User=clash
+Group=clash
+EnvironmentFile=/etc/clash-farm/admin.env
+ExecStart=/opt/clash-farm/bin/cf-admin
+Restart=always
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+ReadOnlyPaths=/opt/clash-farm/admin
+
+[Install]
+WantedBy=multi-user.target

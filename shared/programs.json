@@ -1,0 +1,6 @@
+{
+  "$comment": "Canonical Solana program ids the payment allowlist is built from (ADR-016/017). Base58 is case-sensitive; server and web tests assert their constants equal these.",
+  "compute_budget": "ComputeBudget111111111111111111111111111111",
+  "token": "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA",
+  "memo": "MemoSq4gqABAXKb96qnH8TysNcWxMyWCqXgDLGmfcHr"
+}

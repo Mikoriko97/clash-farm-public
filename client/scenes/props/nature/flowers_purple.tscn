@@ -1,0 +1,7 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/flower_bush_purple.glb" id="1_piece"]
+
+[node name="FlowersPurple" type="Node3D"]
+
+[node name="Piece" parent="." instance=ExtResource("1_piece")]

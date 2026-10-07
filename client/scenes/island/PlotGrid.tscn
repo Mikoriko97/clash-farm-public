@@ -1,0 +1,8 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/plot_grid.gd" id="1_grid"]
+[ext_resource type="PackedScene" path="res://scenes/island/PlotNode.tscn" id="2_plot"]
+
+[node name="PlotGrid" type="Node3D"]
+script = ExtResource("1_grid")
+plot_scene = ExtResource("2_plot")

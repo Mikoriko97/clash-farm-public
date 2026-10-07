@@ -1,0 +1,99 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/littlehouse_a.tscn" id="1_piece"]
+[ext_resource type="Script" path="res://scripts/house_node.gd" id="2_script"]
+[ext_resource type="Material" path="res://materials/highlight.tres" id="9_highlight"]
+[ext_resource type="Script" path="res://scripts/night_light.gd" id="10_night"]
+
+[sub_resource type="BoxShape3D" id="shape"]
+size = Vector3(4.7, 3.0, 3.0)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_highlight"]
+top_radius = 3.1
+bottom_radius = 3.1
+height = 0.04
+radial_segments = 40
+
+[sub_resource type="Gradient" id="Gradient_soft"]
+offsets = PackedFloat32Array(0, 0.35, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.75, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="Tex_soft"]
+gradient = SubResource("Gradient_soft")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Material_smoke"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("Tex_soft")
+albedo_color = Color(0.9, 0.9, 0.92, 0.28)
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="Quad_smoke"]
+material = SubResource("Material_smoke")
+size = Vector2(0.8, 0.8)
+
+[sub_resource type="Gradient" id="Gradient_smoke"]
+offsets = PackedFloat32Array(0, 0.15, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_smoke"]
+gradient = SubResource("Gradient_smoke")
+
+[sub_resource type="Curve" id="Curve_smoke"]
+_data = [Vector2(0, 0.5), 0.0, 0.0, 0, 0, Vector2(1, 2.6), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_smoke"]
+curve = SubResource("Curve_smoke")
+
+[node name="House" type="Node3D"]
+script = ExtResource("2_script")
+
+[node name="Piece" parent="." instance=ExtResource("1_piece")]
+transform = Transform3D(1.0, 0, 0, 0, 1.0, 0, 0, 0, 1.0, 0, 0, 0)
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("shape")
+
+[node name="Highlight" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+visible = false
+mesh = SubResource("CylinderMesh_highlight")
+material_override = ExtResource("9_highlight")
+
+[node name="WindowLight" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.9, 1.35, 1.75)
+light_color = Color(1, 0.8, 0.55, 1)
+omni_range = 6.5
+omni_attenuation = 1.4
+script = ExtResource("10_night")
+night_energy = 2.4
+
+[node name="Smoke" type="CPUParticles3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3, 3.5, -0.9)
+amount = 22
+lifetime = 5.5
+preprocess = 3.0
+visibility_aabb = AABB(-4, -1, -4, 8, 10, 8)
+mesh = SubResource("Quad_smoke")
+emission_shape = 1
+emission_sphere_radius = 0.12
+direction = Vector3(0, 1, 0)
+spread = 8.0
+gravity = Vector3(0.25, 0.7, 0.1)
+initial_velocity_min = 0.5
+initial_velocity_max = 0.8
+angular_velocity_min = -20.0
+angular_velocity_max = 20.0
+scale_amount_curve = SubResource("CurveTexture_smoke")
+color_ramp = SubResource("GradientTexture1D_smoke")

@@ -1,0 +1,30 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/placer.gd" id="1_placer"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/field_b.tscn" id="2_field"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ok"]
+transparency = 1
+albedo_color = Color(0.45, 0.9, 0.45, 0.55)
+roughness = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bad"]
+transparency = 1
+albedo_color = Color(1, 0.35, 0.3, 0.55)
+roughness = 1.0
+
+[node name="Placer" type="Node3D"]
+script = ExtResource("1_placer")
+ok_material = SubResource("StandardMaterial3D_ok")
+bad_material = SubResource("StandardMaterial3D_bad")
+
+[node name="Ghost" type="Node3D" parent="."]
+unique_name_in_owner = true
+visible = false
+
+[node name="Field" parent="Ghost" instance=ExtResource("2_field")]
+unique_name_in_owner = true
+transform = Transform3D(0.9963, 0, 0, 0, 1, 0, 0, 0, 0.5896, 0, 0.03, 0)
+
+[node name="DecorGhost" type="Node3D" parent="Ghost"]
+unique_name_in_owner = true

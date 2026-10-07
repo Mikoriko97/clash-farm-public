@@ -1,0 +1,12 @@
+[gd_scene format=3]
+
+[ext_resource type="PackedScene" path="res://assets/partners/sanctum_temple.glb" id="1_piece"]
+[ext_resource type="Script" path="res://scripts/mesh_collider.gd" id="2_collider"]
+
+[node name="SanctumTemple" type="Node3D"]
+
+[node name="Piece" parent="." instance=ExtResource("1_piece")]
+
+[node name="Body" type="StaticBody3D" parent="." node_paths=PackedStringArray("source")]
+script = ExtResource("2_collider")
+source = NodePath("../Piece")

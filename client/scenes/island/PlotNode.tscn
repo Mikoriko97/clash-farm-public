@@ -1,0 +1,341 @@
+[gd_scene format=4]
+
+[ext_resource type="Script" path="res://scripts/plot_node.gd" id="1_plot"]
+[ext_resource type="Material" path="res://materials/soil_dry_atlas.tres" id="2_dirt"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/field_b.tscn" id="10_field"]
+[ext_resource type="Material" path="res://materials/soil_wet_atlas.tres" id="4_wet"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/plants_b.tscn" id="3_plant"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/plants_a.tscn" id="6_sunflower"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/plants_d.tscn" id="7_redberry"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/plants_e.tscn" id="8_yellowberry"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/plants_f.tscn" id="9_pumpkin"]
+[ext_resource type="Material" path="res://materials/highlight_solid.tres" id="5_highlight"]
+[ext_resource type="PackedScene" path="res://assets/crops/wheat_s0.glb" id="11_wheat0"]
+[ext_resource type="PackedScene" path="res://assets/crops/wheat_s1.glb" id="12_wheat1"]
+[ext_resource type="PackedScene" path="res://assets/crops/wheat_s2.glb" id="13_wheat2"]
+[ext_resource type="PackedScene" path="res://assets/crops/wheat_s3.glb" id="14_wheat3"]
+[ext_resource type="PackedScene" path="res://assets/crops/wheat_s4.glb" id="15_wheat4"]
+[ext_resource type="PackedScene" path="res://assets/crops/carrot_s0.glb" id="c_carrot_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/carrot_s1.glb" id="c_carrot_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/carrot_s2.glb" id="c_carrot_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/carrot_s3.glb" id="c_carrot_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/carrot_s4.glb" id="c_carrot_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/tomato_s0.glb" id="c_tomato_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/tomato_s1.glb" id="c_tomato_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/tomato_s2.glb" id="c_tomato_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/tomato_s3.glb" id="c_tomato_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/tomato_s4.glb" id="c_tomato_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/pumpkin_s0.glb" id="c_pumpkin_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/pumpkin_s1.glb" id="c_pumpkin_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/pumpkin_s2.glb" id="c_pumpkin_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/pumpkin_s3.glb" id="c_pumpkin_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/pumpkin_s4.glb" id="c_pumpkin_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/clashberry_s0.glb" id="c_clashberry_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/clashberry_s1.glb" id="c_clashberry_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/clashberry_s2.glb" id="c_clashberry_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/clashberry_s3.glb" id="c_clashberry_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/clashberry_s4.glb" id="c_clashberry_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/corn_s0.glb" id="c_corn_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/corn_s1.glb" id="c_corn_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/corn_s2.glb" id="c_corn_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/corn_s3.glb" id="c_corn_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/corn_s4.glb" id="c_corn_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/barley_s0.glb" id="c_barley_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/barley_s1.glb" id="c_barley_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/barley_s2.glb" id="c_barley_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/barley_s3.glb" id="c_barley_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/barley_s4.glb" id="c_barley_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/oats_s0.glb" id="c_oats_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/oats_s1.glb" id="c_oats_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/oats_s2.glb" id="c_oats_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/oats_s3.glb" id="c_oats_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/oats_s4.glb" id="c_oats_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/potato_s0.glb" id="c_potato_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/potato_s1.glb" id="c_potato_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/potato_s2.glb" id="c_potato_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/potato_s3.glb" id="c_potato_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/potato_s4.glb" id="c_potato_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/cabbage_s0.glb" id="c_cabbage_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/cabbage_s1.glb" id="c_cabbage_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/cabbage_s2.glb" id="c_cabbage_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/cabbage_s3.glb" id="c_cabbage_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/cabbage_s4.glb" id="c_cabbage_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/beet_s0.glb" id="c_beet_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/beet_s1.glb" id="c_beet_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/beet_s2.glb" id="c_beet_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/beet_s3.glb" id="c_beet_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/beet_s4.glb" id="c_beet_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/radish_s0.glb" id="c_radish_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/radish_s1.glb" id="c_radish_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/radish_s2.glb" id="c_radish_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/radish_s3.glb" id="c_radish_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/radish_s4.glb" id="c_radish_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/onion_s0.glb" id="c_onion_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/onion_s1.glb" id="c_onion_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/onion_s2.glb" id="c_onion_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/onion_s3.glb" id="c_onion_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/onion_s4.glb" id="c_onion_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/pepper_s0.glb" id="c_pepper_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/pepper_s1.glb" id="c_pepper_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/pepper_s2.glb" id="c_pepper_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/pepper_s3.glb" id="c_pepper_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/pepper_s4.glb" id="c_pepper_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/watermelon_s0.glb" id="c_watermelon_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/watermelon_s1.glb" id="c_watermelon_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/watermelon_s2.glb" id="c_watermelon_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/watermelon_s3.glb" id="c_watermelon_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/watermelon_s4.glb" id="c_watermelon_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/melon_s0.glb" id="c_melon_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/melon_s1.glb" id="c_melon_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/melon_s2.glb" id="c_melon_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/melon_s3.glb" id="c_melon_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/melon_s4.glb" id="c_melon_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/strawberry_s0.glb" id="c_strawberry_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/strawberry_s1.glb" id="c_strawberry_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/strawberry_s2.glb" id="c_strawberry_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/strawberry_s3.glb" id="c_strawberry_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/strawberry_s4.glb" id="c_strawberry_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/blueberry_s0.glb" id="c_blueberry_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/blueberry_s1.glb" id="c_blueberry_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/blueberry_s2.glb" id="c_blueberry_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/blueberry_s3.glb" id="c_blueberry_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/blueberry_s4.glb" id="c_blueberry_4"]
+[ext_resource type="PackedScene" path="res://assets/crops/raspberry_s0.glb" id="c_raspberry_0"]
+[ext_resource type="PackedScene" path="res://assets/crops/raspberry_s1.glb" id="c_raspberry_1"]
+[ext_resource type="PackedScene" path="res://assets/crops/raspberry_s2.glb" id="c_raspberry_2"]
+[ext_resource type="PackedScene" path="res://assets/crops/raspberry_s3.glb" id="c_raspberry_3"]
+[ext_resource type="PackedScene" path="res://assets/crops/raspberry_s4.glb" id="c_raspberry_4"]
+[ext_resource type="Script" path="res://scripts/plot_timer.gd" id="s_timer"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_soil"]
+size = Vector3(3, 0.2, 3)
+
+[sub_resource type="BoxMesh" id="BoxMesh_edge_ns"]
+size = Vector3(3.0, 0.02, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_edge_ew"]
+size = Vector3(0.2, 0.02, 3.0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_edge_corner"]
+size = Vector3(0.2, 0.02, 0.2)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dirt"]
+albedo_color = Color(0.36, 0.24, 0.14, 1)
+roughness = 1.0
+
+[sub_resource type="BoxMesh" id="BoxMesh_crumb"]
+material = SubResource("StandardMaterial3D_dirt")
+size = Vector3(0.09, 0.09, 0.09)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_spark"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(1, 0.86, 0.35, 0.9)
+billboard_mode = 3
+
+[sub_resource type="QuadMesh" id="QuadMesh_spark"]
+material = SubResource("StandardMaterial3D_spark")
+size = Vector2(0.12, 0.12)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_drop"]
+transparency = 1
+shading_mode = 0
+albedo_color = Color(0.55, 0.8, 1, 0.8)
+billboard_mode = 3
+
+[sub_resource type="QuadMesh" id="QuadMesh_drop"]
+material = SubResource("StandardMaterial3D_drop")
+size = Vector2(0.05, 0.12)
+
+[node name="PlotNode" type="Node3D"]
+script = ExtResource("1_plot")
+crops = {
+"seed_carrot": ExtResource("8_yellowberry"),
+"seed_clashberry": ExtResource("6_sunflower"),
+"seed_pumpkin": ExtResource("9_pumpkin"),
+"seed_tomato": ExtResource("7_redberry"),
+"seed_wheat": ExtResource("3_plant")
+}
+crop_stages = {
+"seed_wheat": [ExtResource("11_wheat0"), ExtResource("12_wheat1"), ExtResource("13_wheat2"), ExtResource("14_wheat3"), ExtResource("15_wheat4")],
+"seed_carrot": [ExtResource("c_carrot_0"), ExtResource("c_carrot_1"), ExtResource("c_carrot_2"), ExtResource("c_carrot_3"), ExtResource("c_carrot_4")],
+"seed_tomato": [ExtResource("c_tomato_0"), ExtResource("c_tomato_1"), ExtResource("c_tomato_2"), ExtResource("c_tomato_3"), ExtResource("c_tomato_4")],
+"seed_pumpkin": [ExtResource("c_pumpkin_0"), ExtResource("c_pumpkin_1"), ExtResource("c_pumpkin_2"), ExtResource("c_pumpkin_3"), ExtResource("c_pumpkin_4")],
+"seed_clashberry": [ExtResource("c_clashberry_0"), ExtResource("c_clashberry_1"), ExtResource("c_clashberry_2"), ExtResource("c_clashberry_3"), ExtResource("c_clashberry_4")],
+"seed_corn": [ExtResource("c_corn_0"), ExtResource("c_corn_1"), ExtResource("c_corn_2"), ExtResource("c_corn_3"), ExtResource("c_corn_4")],
+"seed_barley": [ExtResource("c_barley_0"), ExtResource("c_barley_1"), ExtResource("c_barley_2"), ExtResource("c_barley_3"), ExtResource("c_barley_4")],
+"seed_oats": [ExtResource("c_oats_0"), ExtResource("c_oats_1"), ExtResource("c_oats_2"), ExtResource("c_oats_3"), ExtResource("c_oats_4")],
+"seed_potato": [ExtResource("c_potato_0"), ExtResource("c_potato_1"), ExtResource("c_potato_2"), ExtResource("c_potato_3"), ExtResource("c_potato_4")],
+"seed_cabbage": [ExtResource("c_cabbage_0"), ExtResource("c_cabbage_1"), ExtResource("c_cabbage_2"), ExtResource("c_cabbage_3"), ExtResource("c_cabbage_4")],
+"seed_beet": [ExtResource("c_beet_0"), ExtResource("c_beet_1"), ExtResource("c_beet_2"), ExtResource("c_beet_3"), ExtResource("c_beet_4")],
+"seed_radish": [ExtResource("c_radish_0"), ExtResource("c_radish_1"), ExtResource("c_radish_2"), ExtResource("c_radish_3"), ExtResource("c_radish_4")],
+"seed_onion": [ExtResource("c_onion_0"), ExtResource("c_onion_1"), ExtResource("c_onion_2"), ExtResource("c_onion_3"), ExtResource("c_onion_4")],
+"seed_pepper": [ExtResource("c_pepper_0"), ExtResource("c_pepper_1"), ExtResource("c_pepper_2"), ExtResource("c_pepper_3"), ExtResource("c_pepper_4")],
+"seed_watermelon": [ExtResource("c_watermelon_0"), ExtResource("c_watermelon_1"), ExtResource("c_watermelon_2"), ExtResource("c_watermelon_3"), ExtResource("c_watermelon_4")],
+"seed_melon": [ExtResource("c_melon_0"), ExtResource("c_melon_1"), ExtResource("c_melon_2"), ExtResource("c_melon_3"), ExtResource("c_melon_4")],
+"seed_strawberry": [ExtResource("c_strawberry_0"), ExtResource("c_strawberry_1"), ExtResource("c_strawberry_2"), ExtResource("c_strawberry_3"), ExtResource("c_strawberry_4")],
+"seed_blueberry": [ExtResource("c_blueberry_0"), ExtResource("c_blueberry_1"), ExtResource("c_blueberry_2"), ExtResource("c_blueberry_3"), ExtResource("c_blueberry_4")],
+"seed_raspberry": [ExtResource("c_raspberry_0"), ExtResource("c_raspberry_1"), ExtResource("c_raspberry_2"), ExtResource("c_raspberry_3"), ExtResource("c_raspberry_4")]
+}
+default_crop = ExtResource("3_plant")
+soil_empty = ExtResource("2_dirt")
+soil_growing = ExtResource("4_wet")
+
+[node name="Soil" parent="." instance=ExtResource("10_field")]
+unique_name_in_owner = true
+transform = Transform3D(0.9963, 0, 0, 0, 1, 0, 0, 0, 0.5896, 0, 0, 0)
+
+[node name="EdgeN" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+visible = false
+mesh = SubResource("BoxMesh_edge_ns")
+material_override = ExtResource("5_highlight")
+
+[node name="EdgeE" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+visible = false
+mesh = SubResource("BoxMesh_edge_ew")
+material_override = ExtResource("5_highlight")
+
+[node name="EdgeS" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+visible = false
+mesh = SubResource("BoxMesh_edge_ns")
+material_override = ExtResource("5_highlight")
+
+[node name="EdgeW" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.03, 0)
+visible = false
+mesh = SubResource("BoxMesh_edge_ew")
+material_override = ExtResource("5_highlight")
+
+[node name="CornerNE" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0.03, -1.6)
+visible = false
+mesh = SubResource("BoxMesh_edge_corner")
+material_override = ExtResource("5_highlight")
+
+[node name="CornerSE" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6, 0.03, 1.6)
+visible = false
+mesh = SubResource("BoxMesh_edge_corner")
+material_override = ExtResource("5_highlight")
+
+[node name="CornerSW" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.03, 1.6)
+visible = false
+mesh = SubResource("BoxMesh_edge_corner")
+material_override = ExtResource("5_highlight")
+
+[node name="CornerNW" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.6, 0.03, -1.6)
+visible = false
+mesh = SubResource("BoxMesh_edge_corner")
+material_override = ExtResource("5_highlight")
+
+[node name="Timer" type="Label3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.2, 0)
+visible = false
+pixel_size = 0.005
+billboard = 1
+no_depth_test = true
+modulate = Color(1, 0.96, 0.82, 1)
+outline_modulate = Color(0.1, 0.12, 0.08, 1)
+text = ""
+font_size = 40
+outline_size = 10
+script = ExtResource("s_timer")
+
+[node name="Body" type="StaticBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.1, 0)
+input_ray_pickable = true
+
+[node name="Collision" type="CollisionShape3D" parent="Body"]
+shape = SubResource("BoxShape3D_soil")
+
+[node name="FxPlant" type="CPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
+emitting = false
+amount = 40
+lifetime = 0.7
+one_shot = true
+explosiveness = 0.95
+mesh = SubResource("BoxMesh_crumb")
+emission_shape = 3
+emission_box_extents = Vector3(0.9, 0.05, 0.9)
+direction = Vector3(0, 1, 0)
+spread = 35.0
+gravity = Vector3(0, -9, 0)
+initial_velocity_min = 2.0
+initial_velocity_max = 3.5
+scale_amount_min = 0.6
+
+[node name="FxHarvest" type="CPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+emitting = false
+amount = 60
+lifetime = 1.0
+one_shot = true
+explosiveness = 0.9
+mesh = SubResource("QuadMesh_spark")
+emission_shape = 3
+emission_box_extents = Vector3(1.0, 0.3, 1.0)
+direction = Vector3(0, 1, 0)
+spread = 50.0
+gravity = Vector3(0, 1.5, 0)
+initial_velocity_min = 0.8
+initial_velocity_max = 2.2
+scale_amount_min = 0.5
+scale_amount_max = 1.4
+
+[node name="FxWater" type="CPUParticles3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3, 0)
+emitting = false
+amount = 80
+lifetime = 0.8
+one_shot = true
+explosiveness = 0.5
+mesh = SubResource("QuadMesh_drop")
+emission_shape = 3
+emission_box_extents = Vector3(0.8, 0.1, 0.8)
+direction = Vector3(0, -1, 0)
+spread = 10.0
+gravity = Vector3(0, -12, 0)
+initial_velocity_min = 1.0
+initial_velocity_max = 2.0
+
+[node name="Crop" type="Node3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.17, 0)
+visible = false
+
+[node name="A" type="Node3D" parent="Crop"]
+transform = Transform3D(1.0, 0, 0.0, 0, 1, 0, -0.0, 0, 1.0, -1.0, 0, -0.7)
+
+[node name="B" type="Node3D" parent="Crop"]
+transform = Transform3D(0.765, 0, 0.644, 0, 1, 0, -0.644, 0, 0.765, 0.0, 0, -0.7)
+
+[node name="C" type="Node3D" parent="Crop"]
+transform = Transform3D(0.878, 0, -0.479, 0, 1, 0, 0.479, 0, 0.878, 1.0, 0, -0.7)
+
+[node name="D" type="Node3D" parent="Crop"]
+transform = Transform3D(0.362, 0, 0.932, 0, 1, 0, -0.932, 0, 0.362, -1.0, 0, 0.7)
+
+[node name="E" type="Node3D" parent="Crop"]
+transform = Transform3D(-0.737, 0, 0.675, 0, 1, 0, -0.675, 0, -0.737, 0.0, 0, 0.7)
+
+[node name="F" type="Node3D" parent="Crop"]
+transform = Transform3D(-0.999, 0, 0.042, 0, 1, 0, -0.042, 0, -0.999, 1.0, 0, 0.7)
+

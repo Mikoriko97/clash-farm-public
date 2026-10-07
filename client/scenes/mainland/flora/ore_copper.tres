@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_big_02.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+layer = "ground"
+scene = ExtResource("2_piece")
+radius_m = 1.5
+spacing_m = 8.0
+density = 0.6
+biome = "rock"
+biome_min = 0.4
+zones = "R"
+tilt = true
+slope_max_deg = 60.0
+above_sea_m = 0.4
+far_chunks = true
+node_kind = "ore_copper"
+sink_m = 0.15

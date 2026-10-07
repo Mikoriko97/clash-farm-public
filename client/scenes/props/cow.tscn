@@ -1,0 +1,21 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/animal_wander.gd" id="2_wander"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/cow_a.tscn" id="1_piece"]
+
+[sub_resource type="BoxShape3D" id="shape"]
+size = Vector3(1.4, 1.0, 0.6)
+
+[node name="Cow" type="Node3D"]
+script = ExtResource("2_wander")
+radius = 6.0
+speed = 0.45
+
+[node name="Piece" parent="." instance=ExtResource("1_piece")]
+transform = Transform3D(1.0, 0, 0, 0, 1.0, 0, 0, 0, 1.0, 0, 0, 0)
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("shape")

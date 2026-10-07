@@ -1,0 +1,50 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/peer_avatar.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://assets/character/base45/base45.glb" id="2_model"]
+[ext_resource type="AnimationLibrary" path="res://assets/character/character_anims.tres" id="3_anims"]
+[ext_resource type="Material" path="res://materials/character_palette.tres" id="4_palette"]
+[ext_resource type="Script" path="res://scripts/footsteps.gd" id="5_steps"]
+[ext_resource type="Script" path="res://scripts/character_life.gd" id="20_life"]
+[ext_resource type="Script" path="res://scripts/stride_sync.gd" id="21_stride"]
+
+[node name="PeerAvatar" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Model" parent="." instance=ExtResource("2_model")]
+transform = Transform3D(0.78, 0, 0, 0, 0.78, 0, 0, 0, 0.78, 0, 0, 0)
+unique_name_in_owner = true
+
+[node name="Base45_Body" parent="Model/Base45/Skeleton3D" index="0"]
+surface_material_override/0 = ExtResource("4_palette")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+root_node = NodePath("../Model/Base45")
+libraries = {
+&"": ExtResource("3_anims")
+}
+autoplay = "idle"
+
+[node name="Nick" type="Label3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.05, 0)
+billboard = 1
+no_depth_test = true
+fixed_size = true
+pixel_size = 0.0008
+modulate = Color(1, 0.98, 0.9, 1)
+outline_modulate = Color(0.1, 0.15, 0.1, 1)
+text = "Farmer"
+font_size = 48
+outline_size = 10
+
+[node name="Footsteps" type="Node" parent="."]
+script = ExtResource("5_steps")
+
+[node name="Life" type="Node" parent="."]
+script = ExtResource("20_life")
+own = false
+
+[node name="StrideSync" type="Node" parent="."]
+script = ExtResource("21_stride")

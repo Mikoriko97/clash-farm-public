@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/simple_trees/pieces/bush_simple_02_b.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+layer = "canopy"
+scene = ExtResource("2_piece")
+radius_m = 3.2
+spacing_m = 12.0
+density = 0.4
+biome = "any"
+zones = "S"
+above_sea_m = 0.5
+anchor = true
+far_chunks = true
+scale_min = 0.8
+scale_max = 1.1
+collider_radius_m = 0.45
+collider_height_m = 2.5
+tint_min = Color(0.76, 0.8, 0.55, 1)
+tint_max = Color(0.9, 0.9, 0.62, 1)

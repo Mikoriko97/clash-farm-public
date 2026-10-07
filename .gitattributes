@@ -1,0 +1,51 @@
+# Line endings: LF everywhere for text. core.autocrlf=true on Windows would
+# turn bash hooks/GDScript/Godot resources into CRLF and break them.
+* text=auto eol=lf
+
+# Godot resources and scripts: always LF
+*.gd text eol=lf
+*.gdshader text eol=lf
+*.gdshaderinc text eol=lf
+*.tscn text eol=lf
+*.tres text eol=lf
+*.godot text eol=lf
+*.cfg text eol=lf
+*.import text eol=lf
+*.sh text eol=lf
+# Windows batch files (the Gradle wrapper of mobile/): CRLF, or cmd.exe misreads labels
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.jar binary
+*.webp binary
+
+# Binary assets
+*.fbx binary
+*.FBX binary
+*.glb binary
+*.blend binary
+*.res binary
+*.png binary
+*.jpg binary
+*.zip binary
+*.pdf binary
+
+# Source and docs: force text so CRLF from Windows tools is always normalized. Git's
+# text=auto heuristic treats Cyrillic-heavy Markdown as binary and would keep CRLF
+# (that is how 798cce9 stored CHANGELOG.md with CRLF).
+*.md text eol=lf
+*.rs text eol=lf
+*.toml text eol=lf
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.css text eol=lf
+*.html text eol=lf
+*.json text eol=lf
+*.sql text eol=lf
+*.py text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.tsv text eol=lf
+.gitignore text eol=lf
+.gitattributes text eol=lf
+*.wav binary

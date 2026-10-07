@@ -1,0 +1,30 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/mainland_node.gd" id="1_script"]
+[ext_resource type="Material" path="res://materials/highlight.tres" id="2_highlight"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_highlight"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.04
+radial_segments = 32
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_body"]
+radius = 0.5
+height = 2.0
+
+[node name="MainlandNode" type="Node3D"]
+script = ExtResource("1_script")
+
+[node name="Highlight" type="MeshInstance3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+visible = false
+mesh = SubResource("CylinderMesh_highlight")
+material_override = ExtResource("2_highlight")
+
+[node name="Body" type="StaticBody3D" parent="."]
+
+[node name="Collision" type="CollisionShape3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0, 0)
+shape = SubResource("CylinderShape3D_body")

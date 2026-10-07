@@ -1,0 +1,10 @@
+# Response headers for static hosting / Caddy (docs/SECURITY.md §6).
+# 'wasm-unsafe-eval' is required to compile the Godot .wasm; it does NOT allow JS eval.
+# connect-src lists the Solana RPC used for blockhash + simulation (web/src/payments/rpc.ts);
+# replace it with the value of VITE_SOLANA_RPC_URL when a private RPC is configured.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' data: blob:; connect-src 'self' https://api.mainnet-beta.solana.com ws://localhost:*; worker-src 'self'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Cross-Origin-Opener-Policy: same-origin

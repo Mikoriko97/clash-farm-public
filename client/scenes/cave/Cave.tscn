@@ -1,0 +1,242 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://scripts/island_input.gd" id="1_input"]
+[ext_resource type="Script" path="res://scripts/mainland_nodes.gd" id="2_nodes"]
+[ext_resource type="Script" path="res://scripts/mainland_landmarks.gd" id="3_landmarks"]
+[ext_resource type="Script" path="res://scripts/interaction.gd" id="4_interaction"]
+[ext_resource type="Script" path="res://scripts/world_bounds.gd" id="5_bounds"]
+[ext_resource type="Script" path="res://scripts/peer_avatars.gd" id="6_peers"]
+[ext_resource type="Script" path="res://scripts/pose_publisher.gd" id="7_pose"]
+[ext_resource type="Script" path="res://scripts/lantern_follow.gd" id="8_lantern"]
+[ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="9_vignette"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="10_player"]
+[ext_resource type="PackedScene" path="res://scenes/player/PeerAvatar.tscn" id="11_peer_avatar"]
+[ext_resource type="PackedScene" path="res://scenes/camera/CameraRig.tscn" id="12_camera"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/MainlandNode.tscn" id="13_node"]
+[ext_resource type="PackedScene" path="res://scenes/mainland/Landmark.tscn" id="14_landmark"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_group_average.glb" id="20_rock_a"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_big_02.glb" id="21_rock_c"]
+[ext_resource type="PackedScene" path="res://assets/nature/pieces/stone_big_03.glb" id="22_rock_d"]
+[ext_resource type="Script" path="res://scripts/zone_settle.gd" id="23_settle"]
+
+[sub_resource type="Environment" id="Environment_cave"]
+background_mode = 1
+background_color = Color(0.02, 0.02, 0.03, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.35, 0.4, 0.5, 1)
+ambient_light_energy = 0.12
+tonemap_mode = 4
+tonemap_exposure = 1.1
+glow_enabled = true
+glow_intensity = 0.4
+glow_strength = 0.9
+glow_bloom = 0.0
+glow_blend_mode = 2
+glow_hdr_threshold = 1.0
+fog_enabled = true
+fog_light_color = Color(0.03, 0.035, 0.05, 1)
+fog_density = 0.03
+fog_sky_affect = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vignette"]
+shader = ExtResource("9_vignette")
+shader_parameter/strength = 0.55
+shader_parameter/inner = 0.45
+
+[sub_resource type="StandardMaterial3D" id="Material_floor"]
+albedo_color = Color(0.3, 0.29, 0.31, 1)
+roughness = 0.95
+
+[sub_resource type="StandardMaterial3D" id="Material_wall"]
+albedo_color = Color(0.22, 0.2, 0.22, 1)
+roughness = 0.98
+
+[sub_resource type="StandardMaterial3D" id="Material_crystal"]
+albedo_color = Color(0.55, 0.85, 1, 1)
+emission_enabled = true
+emission = Color(0.35, 0.7, 1, 1)
+emission_energy_multiplier = 1.6
+roughness = 0.3
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
+size = Vector2(70, 70)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor"]
+size = Vector3(70, 1, 70)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_x"]
+size = Vector3(70, 8, 2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_x"]
+size = Vector3(70, 8, 2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wall_z"]
+size = Vector3(2, 8, 70)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wall_z"]
+size = Vector3(2, 8, 70)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pillar"]
+size = Vector3(4, 8, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_pillar"]
+size = Vector3(4, 8, 4)
+
+[node name="Cave" type="Node3D"]
+script = ExtResource("1_input")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cave")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_floor")
+surface_material_override/0 = SubResource("Material_floor")
+
+[node name="Collision" type="CollisionShape3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_floor")
+
+[node name="WallN" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, -35)
+
+[node name="Mesh" type="MeshInstance3D" parent="WallN"]
+mesh = SubResource("BoxMesh_wall_x")
+surface_material_override/0 = SubResource("Material_wall")
+
+[node name="Collision" type="CollisionShape3D" parent="WallN"]
+shape = SubResource("BoxShape3D_wall_x")
+
+[node name="WallS" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4, 35)
+
+[node name="Mesh" type="MeshInstance3D" parent="WallS"]
+mesh = SubResource("BoxMesh_wall_x")
+surface_material_override/0 = SubResource("Material_wall")
+
+[node name="Collision" type="CollisionShape3D" parent="WallS"]
+shape = SubResource("BoxShape3D_wall_x")
+
+[node name="WallE" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 4, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="WallE"]
+mesh = SubResource("BoxMesh_wall_z")
+surface_material_override/0 = SubResource("Material_wall")
+
+[node name="Collision" type="CollisionShape3D" parent="WallE"]
+shape = SubResource("BoxShape3D_wall_z")
+
+[node name="WallW" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35, 4, 0)
+
+[node name="Mesh" type="MeshInstance3D" parent="WallW"]
+mesh = SubResource("BoxMesh_wall_z")
+surface_material_override/0 = SubResource("Material_wall")
+
+[node name="Collision" type="CollisionShape3D" parent="WallW"]
+shape = SubResource("BoxShape3D_wall_z")
+
+[node name="Pillar1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 4, -6)
+
+[node name="Mesh" type="MeshInstance3D" parent="Pillar1"]
+mesh = SubResource("BoxMesh_pillar")
+surface_material_override/0 = SubResource("Material_wall")
+
+[node name="Collision" type="CollisionShape3D" parent="Pillar1"]
+shape = SubResource("BoxShape3D_pillar")
+
+[node name="Pillar2" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 4, -10)
+
+[node name="Mesh" type="MeshInstance3D" parent="Pillar2"]
+mesh = SubResource("BoxMesh_pillar")
+surface_material_override/0 = SubResource("Material_wall")
+
+[node name="Collision" type="CollisionShape3D" parent="Pillar2"]
+shape = SubResource("BoxShape3D_pillar")
+
+[node name="Pillar3" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 4, -22)
+
+[node name="Mesh" type="MeshInstance3D" parent="Pillar3"]
+mesh = SubResource("BoxMesh_pillar")
+surface_material_override/0 = SubResource("Material_wall")
+
+[node name="Collision" type="CollisionShape3D" parent="Pillar3"]
+shape = SubResource("BoxShape3D_pillar")
+
+[node name="CrystalGlow" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 24, 2, -19)
+light_color = Color(0.45, 0.75, 1, 1)
+light_energy = 1.4
+omni_range = 12.0
+
+[node name="Nodes" type="Node3D" parent="."]
+script = ExtResource("2_nodes")
+node_scene = ExtResource("13_node")
+fallback_scene = ExtResource("20_rock_a")
+kinds = {
+"crystal": ExtResource("22_rock_d"),
+"ore_copper": ExtResource("21_rock_c"),
+"ore_iron": ExtResource("22_rock_d"),
+"rock": ExtResource("20_rock_a")
+}
+crystal_material = SubResource("Material_crystal")
+
+[node name="Landmarks" type="Node3D" parent="."]
+script = ExtResource("3_landmarks")
+marker_scene = ExtResource("14_landmark")
+
+[node name="Player" parent="." instance=ExtResource("10_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 8)
+idle_clip = &"idle_torch"
+
+[node name="Lantern" type="OmniLight3D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("8_lantern")
+target = NodePath("../Player")
+light_color = Color(1, 0.82, 0.55, 1)
+light_energy = 2.2
+omni_range = 11.0
+shadow_enabled = true
+
+[node name="WorldBounds" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("5_bounds")
+player = NodePath("../Player")
+half_size = 33.0
+corner_radius = 0.0
+margin = 0.0
+floor_y = -1.0
+spawn = Vector3(0, 0.05, 8)
+
+[node name="Interaction" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("4_interaction")
+player = NodePath("../Player")
+
+[node name="CameraRig" parent="." node_paths=PackedStringArray("target") instance=ExtResource("12_camera")]
+target = NodePath("../Player")
+
+[node name="PeerAvatars" type="Node3D" parent="."]
+script = ExtResource("6_peers")
+avatar_scene = ExtResource("11_peer_avatar")
+
+[node name="PosePublisher" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("7_pose")
+player = NodePath("../Player")
+
+[node name="PostFX" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Vignette" type="ColorRect" parent="PostFX" groups=["vignette"]]
+material = SubResource("ShaderMaterial_vignette")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Settle" type="Node" parent="."]
+script = ExtResource("23_settle")

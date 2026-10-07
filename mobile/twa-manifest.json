@@ -1,0 +1,9 @@
+{
+  "fallbackType": "webview",
+  "generatorApp": "solana-mobile",
+  "host": "clashofstaking.online",
+  "launcherName": "Clash Farm",
+  "name": "Clash Farm",
+  "packageId": "online.clashofstaking.app",
+  "startUrl": "/"
+}

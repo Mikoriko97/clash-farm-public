@@ -1,0 +1,15 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3]
+
+[ext_resource type="Shader" path="res://shaders/nature_wind.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" path="res://assets/simple_trees/textures/bark_albedo.png" id="2_albedo"]
+
+[resource]
+resource_name = "simple_bark"
+shader = ExtResource("1_shader")
+shader_parameter/albedo_tex = ExtResource("2_albedo")
+shader_parameter/roughness = 0.9
+shader_parameter/specular = 0.1
+shader_parameter/height_ref = 8.0
+shader_parameter/wind_strength = 0.16
+shader_parameter/wind_speed = 0.8
+shader_parameter/flutter = 0.0

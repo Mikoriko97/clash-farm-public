@@ -1,0 +1,49 @@
+/* Слайдери й смуги прокрутки для варіантів (Aaply, Aaply Dark, Foodnoms). Кольори — змінні --ctl-*,
+   які задає кожен варіант нижче; заповнення доріжки дає --fill (див. rangeFill.ts). */
+:root[data-theme^="aaply"] { --ctl-track: var(--hairline); --ctl-fill: var(--sun); --ctl-thumb: var(--paper); --ctl-ring: var(--a-ink); --ctl-scroll: color-mix(in srgb, var(--a-ink) 28%, transparent); --ctl-scroll-hover: color-mix(in srgb, var(--a-ink) 50%, transparent); }
+
+:root[data-theme^="aaply"] {
+  .hud input[type="range"] { -webkit-appearance: none; appearance: none; height: 24px; background: none; cursor: pointer; --fill: 50%; }
+  .hud input[type="range"]::-webkit-slider-runnable-track { height: 8px; border-radius: 8px; background: linear-gradient(to right, var(--ctl-fill) var(--fill), var(--ctl-track) var(--fill)); }
+  .hud input[type="range"]::-moz-range-track { height: 8px; border-radius: 8px; background: var(--ctl-track); }
+  .hud input[type="range"]::-moz-range-progress { height: 8px; border-radius: 8px; background: var(--ctl-fill); }
+  .hud input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -7px; border-radius: 50%; background: var(--ctl-thumb); border: 3px solid var(--ctl-ring); box-sizing: border-box; transition: transform 0.12s var(--ease); }
+  .hud input[type="range"]::-moz-range-thumb { width: 22px; height: 22px; border-radius: 50%; background: var(--ctl-thumb); border: 3px solid var(--ctl-ring); box-sizing: border-box; }
+  .hud input[type="range"]:hover::-webkit-slider-thumb, .hud input[type="range"]:active::-webkit-slider-thumb { transform: scale(1.12); }
+  .hud input[type="range"]:focus-visible { outline: none; }
+  .hud input[type="range"]:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px color-mix(in srgb, var(--ctl-ring) 30%, transparent); }
+  .dev-row input[type="range"] { outline: 0 !important; border: 0 !important; }
+
+  /* прокрутка: тонка, заокруглена, з відступом від краю картки */
+  .panel .body, .creator, .city .body, .tabs, .wallets { scrollbar-width: thin; scrollbar-color: var(--ctl-scroll) transparent; }
+  .panel .body { padding-right: 6px; margin-right: -6px; }
+  @supports selector(::-webkit-scrollbar) {
+    .panel .body, .creator, .city .body, .tabs, .wallets { scrollbar-width: auto; scrollbar-color: auto; }
+    .panel .body::-webkit-scrollbar, .creator::-webkit-scrollbar, .city .body::-webkit-scrollbar, .wallets::-webkit-scrollbar { width: 12px; height: 12px; }
+    .panel .body::-webkit-scrollbar-track, .creator::-webkit-scrollbar-track, .city .body::-webkit-scrollbar-track, .wallets::-webkit-scrollbar-track { background: transparent; margin: 6px 0; }
+    .panel .body::-webkit-scrollbar-thumb, .creator::-webkit-scrollbar-thumb, .city .body::-webkit-scrollbar-thumb, .wallets::-webkit-scrollbar-thumb { background: var(--ctl-scroll); border-radius: 12px; border: 3px solid transparent; background-clip: content-box; min-height: 40px; }
+    .panel .body::-webkit-scrollbar-thumb:hover, .creator::-webkit-scrollbar-thumb:hover, .city .body::-webkit-scrollbar-thumb:hover, .wallets::-webkit-scrollbar-thumb:hover { background: var(--ctl-scroll-hover); background-clip: content-box; }
+    .tabs::-webkit-scrollbar { display: none; }
+  }
+}
+
+/* плавний рухомий індикатор вибраного таба (tabIndicator.ts) */
+:root[data-theme^="aaply"] { --ctl-ind: var(--a-ink); --ctl-ind-ink: var(--a-on-ink); }
+:root[data-theme^="aaply"] {
+  .tabs, .city-nav, .cc-tabs { position: relative; }
+  .tabs[data-ind]::before, .city-nav[data-ind]::before, .cc-tabs[data-ind]::before {
+    content: ""; position: absolute; left: 0; top: 0; z-index: 0; pointer-events: none;
+    width: var(--ind-w); height: var(--ind-h); border-radius: inherit;
+    border-radius: var(--r-pill); background: var(--ctl-ind);
+    transform: translate(var(--ind-x), var(--ind-y));
+  }
+  .tabs[data-ind="ready"]::before, .city-nav[data-ind="ready"]::before, .cc-tabs[data-ind="ready"]::before {
+    transition: transform 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), width 0.32s cubic-bezier(0.3, 1.2, 0.4, 1), height 0.2s, background-color 0.2s;
+  }
+  .tabs[data-ind-c]::before { background: var(--clash); }
+  .tabs[data-ind] button, .city-nav[data-ind] button, .cc-tabs[data-ind] button { position: relative; z-index: 1; transition: color 0.2s; }
+  .tabs[data-ind] button[aria-selected="true"], .tabs[data-ind] button[aria-selected="true"]:hover,
+  .city-nav[data-ind] button[aria-current="true"], .city-nav[data-ind] button[aria-current="true"]:hover,
+  .cc-tabs[data-ind] button[aria-selected="true"], .cc-tabs[data-ind] button[aria-selected="true"]:hover { background: transparent; color: var(--ctl-ind-ink); }
+  @media (prefers-reduced-motion: reduce) { .tabs::before, .city-nav::before, .cc-tabs::before { transition: none !important; } }
+}

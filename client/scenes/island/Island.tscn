@@ -1,0 +1,314 @@
+[gd_scene format=3 uid="uid://yh064j0l01ya"]
+
+[ext_resource type="Material" uid="uid://c4jlrab1mouim" path="res://materials/grass.tres" id="1_grass"]
+[ext_resource type="Material" path="res://materials/water_shore_island.tres" id="2_ocean"]
+[ext_resource type="PackedScene" path="res://scenes/weather/Ambient.tscn" id="17_ambient"]
+[ext_resource type="Material" path="res://materials/farm_sky.tres" id="3_sky"]
+[ext_resource type="Shader" path="res://shaders/vignette.gdshader" id="3_vignette"]
+[ext_resource type="Script" path="res://scripts/peer_avatars.gd" id="3_peers"]
+[ext_resource type="Script" path="res://scripts/pose_publisher.gd" id="3_pose"]
+[ext_resource type="PackedScene" path="res://scenes/player/PeerAvatar.tscn" id="3_peer_avatar"]
+[ext_resource type="Material" path="res://materials/island_ground.tres" id="4_ground"]
+[ext_resource type="Material" path="res://materials/grass/grass_gpu.tres" id="12_blade"]
+[ext_resource type="Script" path="res://scripts/grass_gpu.gd" id="13_grassfield"]
+[ext_resource type="Script" path="res://scripts/day_cycle.gd" id="14_daycycle"]
+[ext_resource type="Script" path="res://scripts/weather.gd" id="15_weather"]
+[ext_resource type="Script" path="res://scripts/world_bounds.gd" id="18_bounds"]
+[ext_resource type="Script" path="res://scripts/nav_grid.gd" id="19_nav"]
+[ext_resource type="Script" path="res://scripts/island_shape.gd" id="23_shape"]
+[ext_resource type="Script" path="res://scripts/resource_grid.gd" id="21_resgrid"]
+[ext_resource type="Script" path="res://scripts/resource_node.gd" id="22_resnode"]
+[ext_resource type="PackedScene" path="res://scenes/island/Placer.tscn" id="20_placer"]
+[ext_resource type="PackedScene" path="res://scenes/weather/Rain.tscn" id="16_rain"]
+[ext_resource type="PackedScene" path="res://scenes/player/Player.tscn" id="5_player"]
+[ext_resource type="PackedScene" path="res://scenes/camera/CameraRig.tscn" id="6_camera"]
+[ext_resource type="PackedScene" path="res://scenes/island/PlotGrid.tscn" id="8_plots"]
+[ext_resource type="PackedScene" path="res://scenes/island/DecorSlots.tscn" id="9_decor"]
+[ext_resource type="Script" path="res://scripts/island_input.gd" id="10_input"]
+[ext_resource type="Script" path="res://scripts/interaction.gd" id="11_interaction"]
+[ext_resource type="PackedScene" path="res://scenes/props/house.tscn" id="20_house"]
+[ext_resource type="PackedScene" path="res://scenes/props/road.tscn" id="21_road"]
+[ext_resource type="PackedScene" path="res://scenes/props/wagon.tscn" id="22_wagon"]
+[ext_resource type="PackedScene" path="res://scenes/props/cart.tscn" id="23_cart"]
+[ext_resource type="PackedScene" path="res://scenes/props/fence.tscn" id="24_fence"]
+[ext_resource type="PackedScene" path="res://scenes/props/nature/tree_birch.tscn" id="25_tree_a"]
+[ext_resource type="PackedScene" path="res://scenes/props/nature/tree_leafy.tscn" id="26_tree_c"]
+[ext_resource type="PackedScene" path="res://scenes/props/nature/tree_spruce.tscn" id="27_tree_f"]
+[ext_resource type="PackedScene" path="res://scenes/props/tree_g.tscn" id="28_tree_g"]
+[ext_resource type="PackedScene" path="res://scenes/props/nature/stone_big.tscn" id="29_rock"]
+[ext_resource type="Script" path="res://scripts/island_wild.gd" id="31_wild"]
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="32_flora_kind"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_bush_big.tres" id="80_w_bush_big"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_bush.tres" id="80_w_bush"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_bush_c.tres" id="80_w_bush_c"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_bush_d.tres" id="80_w_bush_d"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_grass.tres" id="80_w_grass"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_grass_tall.tres" id="80_w_grass_tall"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_flowers_white.tres" id="80_w_flowers_white"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_flowers_blue.tres" id="80_w_flowers_blue"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_flowers_yellow.tres" id="80_w_flowers_yellow"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_stone.tres" id="80_w_stone"]
+[ext_resource type="Resource" path="res://scenes/island/wild/w_mushrooms.tres" id="80_w_mushrooms"]
+[ext_resource type="PackedScene" path="res://scenes/props/logs.tscn" id="31_logs"]
+[ext_resource type="PackedScene" path="res://scenes/props/hen.tscn" id="32_hen"]
+[ext_resource type="PackedScene" path="res://scenes/props/cow.tscn" id="33_cow"]
+[ext_resource type="PackedScene" path="res://scenes/props/straw.tscn" id="34_straw"]
+[ext_resource type="PackedScene" path="res://scenes/props/mailbox.tscn" id="35_mailbox"]
+[ext_resource type="PackedScene" path="res://scenes/props/bucket.tscn" id="36_bucket"]
+[ext_resource type="Script" path="res://scripts/zone_settle.gd" id="81_settle"]
+[ext_resource type="Resource" path="res://scenes/island/wild/x_bush.tres" id="82_x_bush"]
+[ext_resource type="Resource" path="res://scenes/island/wild/x_shore_grass.tres" id="82_x_shore_grass"]
+[ext_resource type="Resource" path="res://scenes/island/wild/x_shore_flowers.tres" id="82_x_shore_flowers"]
+[ext_resource type="Resource" path="res://scenes/island/wild/x_stones.tres" id="82_x_stones"]
+[ext_resource type="Script" path="res://scripts/shader_warmup.gd" id="83_warmup"]
+[ext_resource type="PackedScene" path="res://assets/crops/wheat_s2.glb" id="84_warm_crop"]
+[ext_resource type="PackedScene" path="res://scenes/props/bench.tscn" id="85_warm_bench"]
+[ext_resource type="PackedScene" path="res://scenes/props/lantern.tscn" id="86_warm_lantern"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_blade"]
+size = Vector2(0.45, 0.5)
+center_offset = Vector3(0, 0.25, 0)
+
+[sub_resource type="Sky" id="Sky_farm"]
+sky_material = ExtResource("3_sky")
+
+[sub_resource type="Gradient" id="Gradient_grade"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.03, 0.05, 0.09, 1, 0.5, 0.49, 0.47, 1, 1, 0.985, 0.94, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_grade"]
+gradient = SubResource("Gradient_grade")
+width = 128
+
+[sub_resource type="Environment" id="Environment_island"]
+background_mode = 2
+sky = SubResource("Sky_farm")
+ambient_light_source = 3
+ambient_light_color = Color(0.58, 0.68, 0.9, 1)
+ambient_light_sky_contribution = 0.45
+tonemap_mode = 4
+tonemap_exposure = 1.0
+tonemap_white = 4.0
+glow_enabled = true
+glow_intensity = 0.35
+glow_strength = 0.9
+glow_bloom = 0.04
+glow_blend_mode = 2
+glow_hdr_threshold = 1.15
+adjustment_enabled = true
+adjustment_brightness = 1.0
+adjustment_contrast = 1.1
+adjustment_saturation = 1.12
+adjustment_color_correction = SubResource("GradientTexture1D_grade")
+fog_enabled = true
+fog_light_color = Color(0.72, 0.85, 0.94, 1)
+fog_density = 0.002
+fog_aerial_perspective = 0.55
+fog_sky_affect = 0.4
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vignette"]
+shader = ExtResource("3_vignette")
+shader_parameter/strength = 0.2
+shader_parameter/inner = 0.7
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ground"]
+size = Vector2(58, 58)
+subdivide_width = 96
+subdivide_depth = 96
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ground"]
+size = Vector3(48, 2, 48)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ocean"]
+size = Vector2(400, 400)
+subdivide_width = 60
+
+[node name="Island" type="Node3D"]
+script = ExtResource("10_input")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_island")
+
+[node name="Sun" type="DirectionalLight3D" parent="." groups=["quality_sun"]]
+transform = Transform3D(0.866, -0.4096, 0.2868, 0, 0.5736, 0.8192, -0.5, -0.7094, 0.4967, 0, 20, 0)
+light_energy = 0.72
+shadow_enabled = true
+directional_shadow_mode = 0
+directional_shadow_max_distance = 70.0
+
+[node name="Ground" type="StaticBody3D" parent="."]
+
+[node name="Mesh" type="MeshInstance3D" parent="Ground"]
+mesh = SubResource("PlaneMesh_ground")
+surface_material_override/0 = ExtResource("4_ground")
+
+[node name="Collision" type="CollisionShape3D" parent="Ground"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+shape = SubResource("BoxShape3D_ground")
+
+[node name="GrassField" type="MultiMeshInstance3D" parent="." node_paths=PackedStringArray("plot_grid")]
+script = ExtResource("13_grassfield")
+plot_grid = NodePath("../PlotGrid")
+ground_material = ExtResource("4_ground")
+density = 26.0
+scale_min = 0.75
+scale_max = 1.25
+blade_mesh = SubResource("QuadMesh_blade")
+blade_material = ExtResource("12_blade")
+cast_shadow = 0
+
+[node name="Ocean" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.45, 0)
+mesh = SubResource("PlaneMesh_ocean")
+surface_material_override/0 = ExtResource("2_ocean")
+cast_shadow = 0
+
+[node name="Props" type="Node3D" parent="."]
+script = ExtResource("21_resgrid")
+tree_scene = ExtResource("25_tree_a")
+rock_scene = ExtResource("29_rock")
+
+[node name="House" parent="Props" node_paths=PackedStringArray("player", "interaction") instance=ExtResource("20_house")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13, 0.0, -7)
+player = NodePath("../../Player")
+interaction = NodePath("../../Interaction")
+
+[node name="Tree0" parent="Props" instance=ExtResource("25_tree_a")]
+script = ExtResource("22_resnode")
+idx = 0
+kind = "tree"
+transform = Transform3D(0.9397, 0, -0.342, 0, 1, 0, 0.342, 0, 0.9397, -16, 0.0, -14)
+
+[node name="Tree1" parent="Props" instance=ExtResource("26_tree_c")]
+script = ExtResource("22_resnode")
+idx = 1
+kind = "tree"
+transform = Transform3D(-0.6428, 0, -0.766, 0, 1, 0, 0.766, 0, -0.6428, 17, 0.0, 12)
+
+[node name="Tree2" parent="Props" instance=ExtResource("27_tree_f")]
+script = ExtResource("22_resnode")
+idx = 2
+kind = "tree"
+transform = Transform3D(0.45, 0, -0.7794, 0, 0.9, 0, 0.7794, 0, 0.45, 15, 0.0, -16)
+
+[node name="Rock0" parent="Props" instance=ExtResource("29_rock")]
+script = ExtResource("22_resnode")
+idx = 3
+kind = "rock"
+transform = Transform3D(1, 0, -0, 0, 1, 0, 0, 0, 1, 12, 0, -1)
+
+[node name="Rock1" parent="Props" instance=ExtResource("29_rock")]
+script = ExtResource("22_resnode")
+idx = 4
+kind = "rock"
+transform = Transform3D(0.6427, 0, -0.7662, 0, 1, 0, 0.7662, 0, 0.6427, -9, 0, 11)
+
+[node name="Rock2" parent="Props" instance=ExtResource("29_rock")]
+script = ExtResource("22_resnode")
+idx = 5
+kind = "rock"
+transform = Transform3D(-0.1737, 0, -0.9847, 0, 1, 0, 0.9847, 0, -0.1737, -18, 0, 4)
+
+[node name="Rock3" parent="Props" instance=ExtResource("29_rock")]
+script = ExtResource("22_resnode")
+idx = 6
+kind = "rock"
+transform = Transform3D(-0.866, 0, -0.5, 0, 1, 0, 0.5, 0, -0.866, 6, 0, 17)
+
+[node name="Rock4" parent="Props" instance=ExtResource("29_rock")]
+script = ExtResource("22_resnode")
+idx = 7
+kind = "rock"
+transform = Transform3D(-0.9396, 0, 0.342, 0, 1, 0, -0.342, 0, -0.9396, -5, 0, -19)
+
+[node name="Wild" type="Node3D" parent="." node_paths=PackedStringArray("obstacle_root")]
+script = ExtResource("31_wild")
+kinds = Array[ExtResource("32_flora_kind")]([ExtResource("80_w_bush_big"), ExtResource("80_w_bush"), ExtResource("80_w_bush_c"), ExtResource("80_w_bush_d"), ExtResource("80_w_grass"), ExtResource("80_w_grass_tall"), ExtResource("80_w_flowers_white"), ExtResource("80_w_flowers_blue"), ExtResource("80_w_flowers_yellow"), ExtResource("80_w_stone"), ExtResource("80_w_mushrooms"), ExtResource("82_x_bush"), ExtResource("82_x_shore_grass"), ExtResource("82_x_shore_flowers"), ExtResource("82_x_stones")])
+obstacle_root = NodePath("..")
+ground_material = ExtResource("4_ground")
+
+[node name="PlotGrid" parent="." instance=ExtResource("8_plots")]
+
+[node name="Placer" parent="." node_paths=PackedStringArray("plot_grid", "decor_grid", "player") instance=ExtResource("20_placer")]
+plot_grid = NodePath("../PlotGrid")
+decor_grid = NodePath("../DecorSlots")
+player = NodePath("../Player")
+
+[node name="DecorSlots" parent="." instance=ExtResource("9_decor")]
+
+[node name="Player" parent="." instance=ExtResource("5_player")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0.01, 0)
+
+[node name="IslandShape" type="Node" parent="." node_paths=PackedStringArray("ground_mesh", "ground_collision")]
+script = ExtResource("23_shape")
+ground_mesh = NodePath("../Ground/Mesh")
+ground_collision = NodePath("../Ground/Collision")
+ground_material = ExtResource("4_ground")
+water_material = ExtResource("2_ocean")
+
+[node name="WorldBounds" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("18_bounds")
+player = NodePath("../Player")
+
+[node name="NavGrid" type="Node" parent="."]
+script = ExtResource("19_nav")
+
+[node name="Interaction" type="Node" parent="." node_paths=PackedStringArray("player", "nav_grid")]
+script = ExtResource("11_interaction")
+player = NodePath("../Player")
+nav_grid = NodePath("../NavGrid")
+
+[node name="CameraRig" parent="." node_paths=PackedStringArray("target") instance=ExtResource("6_camera")]
+target = NodePath("../Player")
+
+[node name="DayCycle" type="Node" parent="." node_paths=PackedStringArray("sun", "environment")]
+script = ExtResource("14_daycycle")
+sun = NodePath("../Sun")
+environment = NodePath("../WorldEnvironment")
+water = ExtResource("2_ocean")
+
+[node name="Ambient" parent="." node_paths=PackedStringArray("follow") instance=ExtResource("17_ambient")]
+follow = NodePath("../Player")
+
+[node name="Weather" type="Node" parent="." node_paths=PackedStringArray("day_cycle", "environment", "rain", "follow", "ambient")]
+script = ExtResource("15_weather")
+day_cycle = NodePath("../DayCycle")
+environment = NodePath("../WorldEnvironment")
+rain = NodePath("Rain")
+follow = NodePath("../Player")
+ambient = NodePath("../Ambient")
+base_fog_density = 0.002
+grass_material = ExtResource("12_blade")
+ground_material = ExtResource("4_ground")
+
+[node name="Rain" parent="Weather" instance=ExtResource("16_rain")]
+
+
+[node name="PeerAvatars" type="Node3D" parent="."]
+script = ExtResource("3_peers")
+avatar_scene = ExtResource("3_peer_avatar")
+
+[node name="PosePublisher" type="Node" parent="." node_paths=PackedStringArray("player")]
+script = ExtResource("3_pose")
+player = NodePath("../Player")
+
+[node name="PostFX" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="Vignette" type="ColorRect" parent="PostFX" groups=["vignette"]]
+material = SubResource("ShaderMaterial_vignette")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Warmup" type="Node3D" parent="."]
+script = ExtResource("83_warmup")
+extra = Array[PackedScene]([ExtResource("84_warm_crop"), ExtResource("85_warm_bench"), ExtResource("86_warm_lantern")])
+
+[node name="Settle" type="Node" parent="." node_paths=PackedStringArray("warmup", "wild")]
+script = ExtResource("81_settle")
+warmup = NodePath("../Warmup")
+wild = NodePath("../Wild")

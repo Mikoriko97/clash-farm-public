@@ -1,0 +1,26 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/simple_trees/pieces/tree_simple_04_a.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+layer = "canopy"
+scene = ExtResource("2_piece")
+radius_m = 4.5
+spacing_m = 26.0
+density = 0.4
+biome = "meadow"
+biome_min = 0.55
+cluster = 0.35
+cluster_freq = 0.01
+anchor = true
+far_chunks = true
+collider_radius_m = 0.9
+collider_height_m = 3.0
+scale_min = 1.0
+scale_max = 1.3
+tint_min = Color(0.92, 1.0, 0.78, 1)
+tint_max = Color(1.0, 1.0, 0.9, 1)
+autumn_chance = 0.06
+autumn_tint = Color(1.0, 0.8, 0.45, 1)

@@ -1,0 +1,7 @@
+# gitleaks (CI, ADR-041): reviewed false positives, by exact fingerprint (commit:file:rule:line). Anything else still fails.
+# 2026-10-04: an Idempotency-Key UUID in a test.
+a320774a2c0205c0e589556290ab7978054babd4:server/crates/api/tests/character_flow.rs:generic-api-key:61
+# 2026-10-04: config unit-test fixtures "0123…cdef" and "fedc…3210" (sequential hex, #[cfg(test)]); real values come
+# from the environment (infra/deploy/bootstrap.sh generates them on the box).
+beb07ff0f6c295ef0b455f1f7d80c85208fcaf2f:server/crates/common/src/config.rs:generic-api-key:136
+beb07ff0f6c295ef0b455f1f7d80c85208fcaf2f:server/crates/common/src/config.rs:generic-api-key:137

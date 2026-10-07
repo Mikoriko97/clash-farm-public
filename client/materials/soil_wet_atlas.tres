@@ -1,0 +1,14 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3]
+
+[ext_resource type="Texture2D" path="res://farm_builds/textures/color_1024x1024.jpg" id="1_atlas"]
+
+[resource]
+albedo_color = Color(0.56, 0.42, 0.3, 1)
+albedo_texture = ExtResource("1_atlas")
+vertex_color_use_as_albedo = true
+roughness = 0.7
+metallic_specular = 0.35
+rim_enabled = true
+rim = 0.06
+rim_tint = 0.5
+texture_filter = 0

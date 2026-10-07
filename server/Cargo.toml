@@ -1,0 +1,74 @@
+[workspace]
+resolver = "2"
+members = ["crates/*"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+rust-version = "1.85"
+license = "UNLICENSED"
+publish = false
+
+# Dependency versions live here (ADR-014); crates reference them with `workspace = true`.
+[workspace.dependencies]
+# runtime
+tokio = { version = "1.53.1", features = ["rt-multi-thread", "macros", "signal"] }
+axum = { version = "0.8.9", features = ["macros", "json", "ws"] }
+axum-extra = { version = "0.12.6", features = ["cookie"] }
+tower-http = { version = "0.7.1", features = ["trace", "limit", "request-id", "set-header", "util", "fs"] }
+sqlx = { version = "0.9.0", default-features = false, features = ["runtime-tokio", "tls-rustls", "postgres", "uuid", "time", "json", "migrate", "macros", "rust_decimal"] }
+redis = { version = "1.6.0", features = ["tokio-comp", "connection-manager"] }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = "1.0.151"
+tracing = "0.1.44"
+tracing-subscriber = { version = "0.3.23", features = ["env-filter", "json"] }
+uuid = { version = "1.26.0", features = ["v4", "serde"] }
+time = { version = "0.3.55", features = ["serde", "serde-well-known", "formatting", "parsing"] }
+thiserror = "2.0.20"
+rand = "0.10.2"
+reqwest = { version = "0.13.4", default-features = false, features = ["rustls", "json"] }
+rust_decimal = { version = "1.43.0", features = ["serde"] }
+# auth
+ed25519-dalek = "3.0.0"
+bs58 = "0.5.1"
+k256 = { version = "0.14.0", features = ["ecdsa"] }
+sha3 = "0.12.0"
+sha2 = "0.11.0"
+hex = "0.4.3"
+subtle = "2.6.1"
+# admin second factor, TOTP (ADR-023): already in the lock file via k256/sqlx, same versions
+hmac = "0.13.0"
+sha1 = "0.11.0"
+futures-util = { version = "0.3.34", default-features = false, features = ["std", "sink"] }
+# test-only (ADR-014: dev-dependencies, already transitive via axum/hyper)
+tokio-tungstenite = "0.29.0"
+tower = { version = "0.5.3", features = ["util"] }
+http-body-util = "0.1.5"
+# internal
+cf-common = { path = "crates/common" }
+cf-auth = { path = "crates/auth" }
+cf-world = { path = "crates/world" }
+cf-ledger = { path = "crates/ledger" }
+cf-chain = { path = "crates/chain" }
+cf-payments = { path = "crates/payments" }
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+missing_debug_implementations = "warn"
+
+[workspace.lints.clippy]
+unwrap_used = "deny"
+expect_used = "deny"
+panic = "deny"
+float_arithmetic = "deny"
+
+# Кеш збірки на Windows-диску розробника виріс до 83 ГБ (інкрементальний кеш + debuginfo кожного
+# з ~50 тестових бінарників) і забив диск: лінкер падав із «error writing to program database».
+# Без інкрементальних збірок і з таблицями рядків замість повного debuginfo тести важать на порядок менше.
+[profile.dev]
+incremental = false
+debug = "line-tables-only"
+
+[profile.test]
+incremental = false
+debug = "line-tables-only"

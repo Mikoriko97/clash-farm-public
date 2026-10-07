@@ -1,0 +1,121 @@
+[gd_scene format=3 uid="uid://bvek64xprswh2"]
+
+[ext_resource type="PackedScene" path="res://scenes/city/CityBuilding.tscn" id="1_building"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/farmhouse_a01.tscn" id="10_hall"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/farmbuilding_a.tscn" id="11_market"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/garage_a01.tscn" id="12_workshop"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/littlehouse_c.tscn" id="14_house_c"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/greenhouse_a01.tscn" id="15_greenhouse"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/structures_b.tscn" id="16_structure"]
+[ext_resource type="PackedScene" path="res://assets/farm_pack/pieces/structures_c.tscn" id="17_monument"]
+[ext_resource type="PackedScene" path="res://scenes/props/well.tscn" id="20_well"]
+[ext_resource type="PackedScene" path="res://scenes/props/lantern.tscn" id="21_lantern"]
+[ext_resource type="PackedScene" path="res://scenes/props/bench.tscn" id="22_bench"]
+[ext_resource type="Material" path="res://materials/cobblestone.tres" id="23_cobble"]
+[ext_resource type="PackedScene" path="res://assets/partners/sanctum_temple.glb" id="24_sanctum"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_square"]
+top_radius = 16.0
+bottom_radius = 16.0
+height = 0.12
+radial_segments = 48
+
+[node name="City" type="Node3D" unique_id=1360587682]
+
+[node name="Square" type="MeshInstance3D" parent="." unique_id=2045589150]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.02, 0)
+mesh = SubResource("CylinderMesh_square")
+surface_material_override/0 = ExtResource("23_cobble")
+
+[node name="Well" parent="." unique_id=1774988095 instance=ExtResource("20_well")]
+
+[node name="Bench1" parent="." unique_id=331583005 instance=ExtResource("22_bench")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 3)
+
+[node name="Bench2" parent="." unique_id=1905938027 instance=ExtResource("22_bench")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, -4, 0, -3)
+
+[node name="Lantern1" parent="." unique_id=500411873 instance=ExtResource("21_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, 11)
+
+[node name="Lantern2" parent="." unique_id=111005769 instance=ExtResource("21_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, 11)
+
+[node name="Lantern3" parent="." unique_id=1302052101 instance=ExtResource("21_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11, 0, -11)
+
+[node name="Lantern4" parent="." unique_id=1676646291 instance=ExtResource("21_lantern")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11, 0, -11)
+
+[node name="Hall" parent="." unique_id=1392612606 instance=ExtResource("1_building")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0008430481, 0.01726222, -34.003296)
+id = "hall"
+kind = "hall"
+label = "Town hall"
+door_offset = Vector3(0, 0, 8.5)
+
+[node name="Piece" parent="Hall" unique_id=1709596168 instance=ExtResource("10_hall")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.11217022, 0)
+
+[node name="Market" parent="." unique_id=351685571 instance=ExtResource("1_building")]
+transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, 36, 0, 0)
+id = "market"
+kind = "market"
+label = "Market"
+door_offset = Vector3(0, 0, 6.5)
+
+[node name="Piece" parent="Market" unique_id=1723804905 instance=ExtResource("11_market")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.06239772, 0)
+
+[node name="Workshop" parent="." unique_id=2071716823 instance=ExtResource("1_building")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34, 0, 0)
+id = "workshop"
+kind = "workshop"
+label = "Workshop"
+door_offset = Vector3(5.2, 0, 0)
+door_yaw_deg = 90.0
+
+[node name="Piece" parent="Workshop" unique_id=237458454 instance=ExtResource("12_workshop")]
+
+[node name="Showcase1" parent="." unique_id=2051036710 instance=ExtResource("1_building")]
+transform = Transform3D(0.7071, 0, -0.7071, 0, 1, 0, 0.7071, 0, 0.7071, 24, 0, -26)
+id = "showcase_staking"
+label = "Sanctum"
+door_offset = Vector3(0, 0, 13.2)
+sign_height = 6.6
+
+[node name="Piece" parent="Showcase1" unique_id=434228587 instance=ExtResource("24_sanctum")]
+
+[node name="Showcase2" parent="." unique_id=1542171596 instance=ExtResource("1_building")]
+transform = Transform3D(0.7071, 0, 0.7071, 0, 1, 0, -0.7071, 0, 0.7071, -24, 0, -26)
+id = "showcase_exchange"
+label = "Swap house"
+door_offset = Vector3(0, 0, 3.5)
+
+[node name="Piece" parent="Showcase2" unique_id=335392953 instance=ExtResource("14_house_c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.08851099, 0)
+
+[node name="Showcase3" parent="." unique_id=1166045396 instance=ExtResource("1_building")]
+transform = Transform3D(-0.7071, 0, -0.7071, 0, 1, 0, 0.7071, 0, -0.7071, 24.010046, 0, 26.002995)
+id = "showcase_pools"
+label = "Pool house"
+door_offset = Vector3(0, 0, 6.5)
+
+[node name="Piece" parent="Showcase3" unique_id=629554699 instance=ExtResource("15_greenhouse")]
+
+[node name="Showcase4" parent="." unique_id=828016948 instance=ExtResource("1_building")]
+transform = Transform3D(-0.7071, 0, 0.7071, 0, 1, 0, -0.7071, 0, -0.7071, -24, 0, 26)
+id = "showcase_gallery"
+label = "Gallery"
+door_offset = Vector3(0, 0, 3.5)
+
+[node name="Piece" parent="Showcase4" unique_id=1792439762 instance=ExtResource("16_structure")]
+
+[node name="Monument" parent="." unique_id=984840065 instance=ExtResource("1_building")]
+transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0, 30)
+id = "monument"
+kind = "monument"
+label = "Founders' monument"
+door_offset = Vector3(0, 0, 3.5)
+
+[node name="Piece" parent="Monument" unique_id=989207203 instance=ExtResource("17_monument")]

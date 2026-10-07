@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "clash-farm/bridge-protocol",
+  "title": "Clash Farm bridge protocol (Godot <-> React)",
+  "description": "Source of truth for docs/BRIDGE_PROTOCOL.md. Wire format: one JSON string per message. web/src/bridge/protocol.ts and client/scripts/bridge.gd mirror the type tables; tests keep them in sync.",
+  "version": 1,
+  "envelope": {
+    "type": "object",
+    "required": [
+      "v",
+      "type",
+      "payload"
+    ],
+    "properties": {
+      "v": {
+        "const": 1
+      },
+      "type": {
+        "type": "string"
+      },
+      "payload": {
+        "type": "object"
+      }
+    }
+  },
+  "toGodot": {
+    "session_ready": {
+      "required": {
+        "island_id": "string"
+      }
+    },
+    "world_state": {
+      "required": {
+        "full": "boolean",
+        "plots": "array",
+        "decor": "array"
+      }
+    },
+    "inventory_changed": {
+      "required": {}
+    },
+    "set_mode": {
+      "required": {
+        "mode": "string"
+      },
+      "enum": {
+        "mode": [
+          "walk",
+          "build",
+          "ui"
+        ]
+      }
+    },
+    "play_fx": {
+      "required": {
+        "fx": "string"
+      }
+    },
+    "camera_focus": {
+      "required": {
+        "target": "any"
+      }
+    },
+    "theme": {
+      "required": {
+        "season_id": "string"
+      }
+    },
+    "walk_to": {
+      "required": {
+        "kind": "string",
+        "idx": "number"
+      },
+      "enum": {
+        "kind": [
+          "plot",
+          "decor",
+          "resource",
+          "house"
+        ]
+      }
+    },
+    "house": {
+      "required": {
+        "inside": "boolean"
+      }
+    },
+    "peers_state": {
+      "required": {
+        "peers": "array"
+      }
+    },
+    "set_zone": {
+      "required": {
+        "zone": "string"
+      },
+      "enum": {
+        "zone": [
+          "island",
+          "mainland",
+          "cave"
+        ]
+      }
+    },
+    "mainland_nodes": {
+      "required": {
+        "chunks": "array"
+      }
+    },
+    "mainland_node": {
+      "required": {
+        "id": "string",
+        "hits_left": "number"
+      }
+    },
+    "mainland_landmarks": {
+      "required": {
+        "landmarks": "array"
+      }
+    },
+    "teleport": {
+      "required": {
+        "zone": "string",
+        "x_dm": "number",
+        "z_dm": "number"
+      }
+    },
+    "build_rotate": {
+      "required": {
+        "delta_deg": "number"
+      }
+    },
+    "move_input": {
+      "required": {
+        "x": "number",
+        "y": "number"
+      }
+    },
+    "debug_world": {
+      "required": {},
+      "description": "dev only: hour (number|null=live), weather (clear|cloudy|rain|auto), day_length_min"
+    },
+    "set_quality": {
+      "required": {
+        "tier": "string"
+      },
+      "description": "graphics tier from the menu: auto | low | medium | high; Godot answers with quality_changed"
+    },
+    "jump": {
+      "required": {},
+      "description": "phone jump button; keyboard jumps with Space inside Godot"
+    },
+    "set_volume": {
+      "required": {
+        "sfx": "number",
+        "ambient": "number"
+      },
+      "description": "volume 0..100 for world effects and ambient from the menu; Godot saves it (user://settings.cfg [audio]) and answers with volume_changed"
+    },
+    "player_look": {
+      "required": {
+        "look": "object"
+      },
+      "description": "the player's look as #rrggbb colours per slot {skin, shirt, pants, shoes} (ADR-025); Godot repaints the character and remembers it for scenes that appear later"
+    },
+    "camera_preview": {
+      "required": {
+        "on": "boolean"
+      },
+      "description": "character creator: camera close on the character, who faces it (optional yaw_deg turns the character for a side or back view; optional focus body|head frames the whole body or only the head); on:false restores the normal camera"
+    }
+  },
+  "fromGodot": {
+    "ready": {
+      "required": {
+        "version": "string"
+      }
+    },
+    "plot_selected": {
+      "required": {
+        "idx": "number"
+      }
+    },
+    "cell_selected": {
+      "required": {
+        "col": "number",
+        "row": "number"
+      }
+    },
+    "place_selected": {
+      "required": {
+        "x_dm": "number",
+        "z_dm": "number",
+        "yaw_deg": "number"
+      }
+    },
+    "building_entered": {
+      "required": {
+        "building_id": "string"
+      }
+    },
+    "house_entered": {
+      "required": {
+        "ok": "boolean"
+      }
+    },
+    "debug_probe": {
+      "required": {},
+      "description": "dev only, reply to debug_world { probe: true }: x, y, z, on_floor, ground_y, city_y, city_lowest_y"
+    },
+    "player_pose": {
+      "required": {
+        "x_dm": "number",
+        "z_dm": "number",
+        "yaw_deg": "number",
+        "anim": "string"
+      }
+    },
+    "zone_changed": {
+      "required": {
+        "zone": "string"
+      }
+    },
+    "player_chunk": {
+      "required": {
+        "cx": "number",
+        "cz": "number"
+      }
+    },
+    "mode_changed": {
+      "required": {
+        "mode": "string"
+      },
+      "enum": {
+        "mode": [
+          "walk",
+          "build",
+          "ui"
+        ]
+      }
+    },
+    "error": {
+      "required": {
+        "code": "string",
+        "detail": "string"
+      }
+    },
+    "player_near": {
+      "required": {
+        "kind": "string",
+        "idx": "number",
+        "distance": "number"
+      },
+      "enum": {
+        "kind": [
+          "plot",
+          "decor",
+          "resource",
+          "house",
+          "none"
+        ]
+      }
+    },
+    "quality_changed": {
+      "required": {
+        "tier": "string",
+        "effective": "string"
+      },
+      "description": "graphics tier in force: tier is the setting, effective what auto picked"
+    },
+    "zone_ready": {
+      "required": {
+        "zone": "string"
+      },
+      "description": "the zone's scene has settled (shaders warmed, first chunks and flora built); the shell drops the travel curtain"
+    },
+    "volume_changed": {
+      "required": {
+        "sfx": "number",
+        "ambient": "number"
+      },
+      "description": "the volumes in force (at start and after set_volume); the web mirrors sfx for its own UI sounds"
+    }
+  }
+}

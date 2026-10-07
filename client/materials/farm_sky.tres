@@ -1,0 +1,43 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3]
+
+[ext_resource type="Shader" path="res://shaders/skies/shader/main.gdshader" id="1_shader"]
+[ext_resource type="NoiseTexture2D" uid="uid://dy4tvvd6jbv0g" path="res://shaders/skies/textures/clouds/clouds_01.tres" id="2_cloud_a"]
+[ext_resource type="NoiseTexture2D" uid="uid://bb5calsl3axsd" path="res://shaders/skies/textures/clouds/clouds_02.tres" id="3_cloud_b"]
+[ext_resource type="NoiseTexture2D" uid="uid://y2rosh6pwqt3" path="res://shaders/skies/textures/clouds/clouds_03.tres" id="4_stars"]
+[ext_resource type="NoiseTexture2D" uid="uid://de68x5ujqbcqu" path="res://shaders/skies/textures/clouds/clouds_07.tres" id="5_night"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/sky_day = Color(0.22, 0.52, 0.88, 1)
+shader_parameter/horizon_day = Color(0.7, 0.84, 0.94, 1)
+shader_parameter/horizon_sunset = Color(1, 0.48, 0.22, 1)
+shader_parameter/sky_sunset = Color(0.16, 0.2, 0.42, 1)
+shader_parameter/horizon_night = Color(0.08, 0.1, 0.22, 1)
+shader_parameter/sky_night = Color(0.018, 0.028, 0.08, 1)
+shader_parameter/day_night_mix = 0.8
+shader_parameter/use_directional_light = false
+shader_parameter/horizon_exponent = 2.4
+shader_parameter/sunset_amount_exponent = 0.7
+shader_parameter/night_amount_exponent = 4.0
+shader_parameter/sun_dir = Vector3(0.15, 0.75, 0.4)
+shader_parameter/cloud_tex_01 = ExtResource("2_cloud_a")
+shader_parameter/cloud_tex_02 = ExtResource("3_cloud_b")
+shader_parameter/cloud_color = Color(0.96, 0.97, 1, 1)
+shader_parameter/cloud_tiling = Vector2(1.05, 1.05)
+shader_parameter/wind_speed = Vector2(0.32, 0.11)
+shader_parameter/cloud_density = 0.32
+shader_parameter/cloud_coverage = 0.2
+shader_parameter/cloud_depth = 1.0
+shader_parameter/cloud_shape_exponent = 2.4
+shader_parameter/cloud_occlude_exponent = 1.2
+shader_parameter/storm = 0.0
+shader_parameter/lightning = 0.0
+shader_parameter/lightning_dir = Vector3(0.32, 0.62, -0.28)
+shader_parameter/night_noise_01 = ExtResource("4_stars")
+shader_parameter/night_noise_02 = ExtResource("5_night")
+shader_parameter/sun_scale = 0.032
+shader_parameter/sun_strength = 16.0
+shader_parameter/sun_color = Color(1, 0.92, 0.55, 1)
+shader_parameter/moon_scale = 0.02
+shader_parameter/moon_strength = 7.0
+shader_parameter/moon_color = Color(0.8, 0.86, 0.98, 1)

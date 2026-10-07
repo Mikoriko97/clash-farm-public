@@ -1,0 +1,141 @@
+[gd_scene load_steps=16 format=3]
+
+[ext_resource type="Script" path="res://scripts/ambient_particles.gd" id="1_script"]
+
+[sub_resource type="Gradient" id="Gradient_soft"]
+offsets = PackedFloat32Array(0, 0.35, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.75, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="Tex_soft"]
+gradient = SubResource("Gradient_soft")
+width = 64
+height = 64
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 0.5)
+
+[sub_resource type="StandardMaterial3D" id="Material_pollen"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("Tex_soft")
+albedo_color = Color(1, 0.96, 0.8, 0.55)
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="Quad_pollen"]
+material = SubResource("Material_pollen")
+size = Vector2(0.07, 0.07)
+
+[sub_resource type="Gradient" id="Gradient_pollen"]
+offsets = PackedFloat32Array(0, 0.2, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pollen"]
+gradient = SubResource("Gradient_pollen")
+
+[sub_resource type="StandardMaterial3D" id="Material_leaf"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.7, 0.75, 0.3, 0.9)
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="Quad_leaf"]
+material = SubResource("Material_leaf")
+size = Vector2(0.16, 0.1)
+
+[sub_resource type="Gradient" id="Gradient_leaf"]
+offsets = PackedFloat32Array(0, 0.1, 0.85, 1)
+colors = PackedColorArray(0.75, 0.8, 0.3, 0, 0.75, 0.8, 0.3, 1, 0.85, 0.65, 0.25, 1, 0.85, 0.65, 0.25, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_leaf"]
+gradient = SubResource("Gradient_leaf")
+
+[sub_resource type="StandardMaterial3D" id="Material_firefly"]
+transparency = 1
+shading_mode = 0
+albedo_texture = SubResource("Tex_soft")
+vertex_color_use_as_albedo = true
+albedo_color = Color(1, 0.9, 0.45, 1)
+emission_enabled = true
+emission = Color(1, 0.85, 0.35, 1)
+emission_energy_multiplier = 5.0
+billboard_mode = 3
+billboard_keep_scale = true
+
+[sub_resource type="QuadMesh" id="Quad_firefly"]
+material = SubResource("Material_firefly")
+size = Vector2(0.2, 0.2)
+
+[sub_resource type="Gradient" id="Gradient_firefly"]
+offsets = PackedFloat32Array(0, 0.25, 0.45, 0.6, 0.8, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0.1, 1, 1, 1, 1, 1, 1, 1, 0.9, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_firefly"]
+gradient = SubResource("Gradient_firefly")
+
+[node name="Ambient" type="Node3D" node_paths=PackedStringArray("pollen", "leaves", "fireflies")]
+script = ExtResource("1_script")
+pollen = NodePath("Pollen")
+leaves = NodePath("Leaves")
+fireflies = NodePath("Fireflies")
+
+[node name="Pollen" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 260
+lifetime = 9.0
+preprocess = 4.0
+visibility_aabb = AABB(-30, -6, -30, 60, 20, 60)
+mesh = SubResource("Quad_pollen")
+emission_shape = 3
+emission_box_extents = Vector3(22, 2.5, 22)
+direction = Vector3(1, 0.1, 0.4)
+spread = 40.0
+gravity = Vector3(0, 0.02, 0)
+initial_velocity_min = 0.15
+initial_velocity_max = 0.45
+damping_min = 0.05
+damping_max = 0.1
+color_ramp = SubResource("GradientTexture1D_pollen")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 0)
+
+[node name="Leaves" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 48
+lifetime = 10.0
+preprocess = 5.0
+visibility_aabb = AABB(-30, -10, -30, 60, 24, 60)
+mesh = SubResource("Quad_leaf")
+emission_shape = 3
+emission_box_extents = Vector3(22, 1.0, 22)
+direction = Vector3(1, -0.3, 0.5)
+spread = 25.0
+gravity = Vector3(0.35, -0.55, 0.15)
+initial_velocity_min = 0.4
+initial_velocity_max = 0.9
+angular_velocity_min = -90.0
+angular_velocity_max = 90.0
+damping_min = 0.15
+damping_max = 0.35
+color_ramp = SubResource("GradientTexture1D_leaf")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, 0)
+
+[node name="Fireflies" type="CPUParticles3D" parent="."]
+emitting = false
+amount = 140
+lifetime = 5.0
+preprocess = 3.0
+visibility_aabb = AABB(-30, -4, -30, 60, 10, 60)
+mesh = SubResource("Quad_firefly")
+emission_shape = 3
+emission_box_extents = Vector3(22, 0.9, 22)
+direction = Vector3(0, 1, 0)
+spread = 180.0
+gravity = Vector3(0, 0, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.35
+damping_min = 0.02
+damping_max = 0.06
+color_ramp = SubResource("GradientTexture1D_firefly")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4, 0)

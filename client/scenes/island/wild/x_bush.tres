@@ -1,0 +1,22 @@
+[gd_resource type="Resource" script_class="FloraKind" load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/flora_kind.gd" id="1_kind"]
+[ext_resource type="PackedScene" path="res://assets/simple_trees/pieces/bush_simple_01_c.glb" id="2_piece"]
+
+[resource]
+script = ExtResource("1_kind")
+zones = "X"
+layer = "shrub"
+scene = ExtResource("2_piece")
+radius_m = 1.3
+spacing_m = 4.0
+density = 0.45
+biome = "any"
+cluster = -1.0
+cluster_freq = 0.05
+scale_min = 0.8
+scale_max = 1.15
+collider_radius_m = 0.9
+collider_height_m = 1.6
+tint_min = Color(0.78, 0.9, 0.7, 1)
+tint_max = Color(0.96, 1.0, 0.86, 1)
