@@ -5,3 +5,8 @@ a320774a2c0205c0e589556290ab7978054babd4:server/crates/api/tests/character_flow.
 # from the environment (infra/deploy/bootstrap.sh generates them on the box).
 beb07ff0f6c295ef0b455f1f7d80c85208fcaf2f:server/crates/common/src/config.rs:generic-api-key:136
 beb07ff0f6c295ef0b455f1f7d80c85208fcaf2f:server/crates/common/src/config.rs:generic-api-key:137
+# Public repository (github.com/Mikoriko97/clash-farm-public): the same reviewed test-only placeholder secrets
+# as in .gitleaksignore (ADR-041), under the public commits. Appended by tools/public-snapshot.sh.
+6f405c6210dea473250afc359015cd2b5e5b61e6:server/crates/api/tests/character_flow.rs:generic-api-key:61
+6f405c6210dea473250afc359015cd2b5e5b61e6:server/crates/common/src/config.rs:generic-api-key:255
+6f405c6210dea473250afc359015cd2b5e5b61e6:server/crates/common/src/config.rs:generic-api-key:256

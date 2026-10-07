@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { existsSync, readFileSync } from "node:fs";
 import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it } from "vitest";
 import { CharacterCreator, statusLine } from "../CharacterCreator";
@@ -8,7 +8,10 @@ import { NAME_ERRORS, sentence } from "../useNameCheck";
 
 const rust = readFileSync(new URL("../../../../server/crates/world/src/character.rs", import.meta.url), "utf8");
 const rustNick = readFileSync(new URL("../../../../server/crates/world/src/nickname.rs", import.meta.url), "utf8");
-const glbs = ["head_parts", "outfits", "outfits_f"].map((name) => readFileSync(new URL(`../../../../client/assets/character/base45/${name}.glb`, import.meta.url)));
+// The public source copy ships without binary art (tools/public): the GLB checks run where the models are.
+const glbUrl = (name: string) => new URL(`../../../../client/assets/character/base45/${name}.glb`, import.meta.url);
+const hasArt = existsSync(glbUrl("head_parts"));
+const glbs = hasArt ? ["head_parts", "outfits", "outfits_f"].map((name) => readFileSync(glbUrl(name))) : [];
 /** Faces are cells of the base face atlas (ADR-032), not GLB nodes: ids as Godot maps them (`CharacterFace.CELLS`). */
 const faceIds = new Set([...(/const CELLS: Dictionary = \{([^}]*)\}/.exec(readFileSync(new URL("../../../../client/scripts/character_face.gd", import.meta.url), "utf8"))?.[1] ?? "").matchAll(/"(face_[a-z]+)"/g)].map((m) => m[1]));
 
@@ -42,7 +45,7 @@ describe("palette", () => {
     }
   });
 
-  it("names only parts that exist in the parts GLBs, once each, and keeps none only where it is allowed", () => {
+  it.skipIf(!hasArt)("names only parts that exist in the parts GLBs, once each, and keeps none only where it is allowed", () => {
     const nodes = glbNodeNames();
     const seen = new Set<string>();
     for (const slot of PART_SLOTS) {
@@ -61,7 +64,7 @@ describe("palette", () => {
     for (const slot of ["hair", "beard", "hat", "glasses", "outfit"] as const) expect(PARTS[slot][0]?.id, slot).toBeNull();
   });
 
-  it("names the bodies and builds Godot knows (CharacterBody) and keeps every outfit set in step", () => {
+  it.skipIf(!hasArt)("names the bodies and builds Godot knows (CharacterBody) and keeps every outfit set in step", () => {
     const godot = readFileSync(new URL("../../../../client/scripts/character_body.gd", import.meta.url), "utf8");
     expect(PARTS.body.map((p) => p.id)).toEqual([/const MALE := "([a-z_]+)"/.exec(godot)?.[1], /const FEMALE := "([a-z_]+)"/.exec(godot)?.[1]]);
     // `BUILDS` in Godot: build id → key suffix (average has none).
